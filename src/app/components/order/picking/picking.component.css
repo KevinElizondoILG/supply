@@ -1,0 +1,36 @@
+.info p {
+    max-height: 20px;
+    font-size: 22px;
+    font-weight: 900;
+    padding-top: 2%;
+}
+
+p.pick {
+    max-height: 0px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.card-title {
+    line-height: 15px;
+}
+
+.submitbtn {
+    position: relative;
+    left: 1%;
+    margin-top: -20px;
+}
+
+.table input {
+    max-height: 25px;
+}
+
+table td div {
+    text-align: center;
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+    height: auto;
+    display: none;
+}

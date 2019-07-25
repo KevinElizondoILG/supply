@@ -1,0 +1,61 @@
+<app-header></app-header>
+<ng-container class="container filters">
+  <div class="row">
+    <div class="col-md-3 col-md-pull-2 text-center">
+      <button type="button" class="btn btn-outline-danger " (click)="clean()">Borrar Filtros</button>
+      <button type="button" class="btn btn-outline-primary spa" (click)="reset()">Actualizar</button>
+    </div>
+    <div class="col-md-7">
+      <div class="form-group has-search">
+        <span class="icon-search form-control-feedback"></span>
+        <input class="col-md-12 form-control search" (input)="onChangeSearch($event)"
+          placeholder="Buscar por código o descripcion" type="text">
+      </div>
+    </div>
+    <div class="col-md-2 col-md-pull-12 text-center">
+      <a class="btn btn-outline-success" (click)="exportStockAsXLSX(stock)">Download <img src="assets/excel.png"
+          class="excel" alt="Export to excel"> </a>
+    </div>
+
+  </div>
+</ng-container>
+
+<ng-container matColumnDef="column">
+  <table class="table  table-sm table-striped table-bordered table-responsive-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th style="width: 5%">
+          <p>SUCURSAL
+            <select *ngIf="filter" (change)="onChange($event)">
+              <option *ngFor="let item of stock | sucursal: undefined" [value]="item.IDSUCURSAL" name="FilterSucursal"
+                [selected]="item.IDSUCURSAL">
+                {{item.IDSUCURSAL}}
+              </option>
+            </select> <i class="icon-filter" (click)="onClickOrg()"></i> </p>
+        </th>
+        <th style="width: 5%">
+          <p>SUBINVENTARIO
+            <select *ngIf="filterSub" (change)="onChangeSub($event)">
+              <option *ngFor="let item of stock | dua: undefined:filterSucursal" [value]="item.DUA" name="FilterDua"
+                [selected]="item.DUA">
+                {{item.DUA}}
+              </option>
+            </select> <i class="icon-filter" (click)="onClickSub()"></i> </p>
+        </th>
+        <th style="width: 5%"> CODIGO </th>
+        <th> DESCRIPCION </th>
+        <th style="width: 5%"> CANTIDAD </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of stock | stockfilters:filterSucursal:filterDua:filterSearch ">
+        <td> {{item.IDSUCURSAL}}</td>
+        <td>{{item.DUA | uppercase}}</td>
+        <td>{{item.IDARTICULOCLIENTE | uppercase}}</td>
+        <td>{{item.DESCRIPCIONLARGA | uppercase}}</td>
+        <td>{{item.CANTIDADUNIDADES}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-container>

@@ -1,0 +1,20 @@
+<app-header></app-header>
+<div class="container order">
+
+    <div class="row text-center">
+        <div class="col-md-12 title">
+            <h1>Please select a order type</h1>
+        </div>
+        <div class="col-6 regular align-self-center">
+            <a (click)="onRegular('regular')" [routerLink]="['/order/regular']" class="btn btn-danger btn-lg">
+                <img src="assets/delivery.png" height="80px"> <br>REGULAR</a>
+            <p class="col-md-6 offset-md-3">This type of order send by FIFO any genders.</p>
+        </div>
+        <div class="col-6 picking align-self-center">
+            <a (click)="onPicking('picking')" [routerLink]="['/order/picking']" class="btn btn-secondary btn-lg">
+                <img src="assets/conveyor.png" height="80px"> <br>PICKING
+            </a>
+            <p class="col-md-6 offset-md-3">This type of order permit select quantities of different genders.</p>
+        </div>
+    </div>
+</div>

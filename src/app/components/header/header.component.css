@@ -1,0 +1,34 @@
+.store {
+    font-weight: 200;
+    font-size: 12px;
+    text-align: left;
+    color: #e2e2e2;
+    display: block;
+}
+
+.user {
+    font-weight: 200;
+    font-size: 12px;
+    float: right;
+    color: #d9d9d9;
+}
+
+@media screen and (max-width: 991px) {
+    .user {
+        float: left;
+    }
+}
+
+.logouticon {
+    content: icon;
+}
+
+.logout {
+    vertical-align: middle;
+}
+
+.navbar {
+    font-weight: 200;
+    font-size: 18px;
+    color: #d9d9d9 !important;
+}

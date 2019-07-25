@@ -1,0 +1,50 @@
+table thead th {
+  font-size: 10px;
+}
+
+table thead th p {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 0rem;
+}
+
+table thead th i {
+  padding-left: 5px;
+  padding-bottom: 0;
+}
+
+table select {
+  border: #721c24 1px solid;
+  border-radius: 25px;
+  background: #fff;
+  padding-left: 5px;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.form-group.has-search {
+  margin-top: 4px;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+button.btn.btn-outline-primary.spa {
+  margin-left: 10px;
+  padding: 9px;
+}
+
+button.btn.btn-outline-danger {
+  padding: 9px;
+}

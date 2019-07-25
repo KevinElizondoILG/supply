@@ -1,0 +1,36 @@
+# INSTRUCTION:
+# Place this file next to the app's index.html.
+# There are two options for the redirection:
+# Option 1) (default): Your app is directly on the root of the domain.
+# Option 2): Your app is placed in a subfolder from the root of the domain.
+#
+# If you have issues with browser caching you can uncomment the BROWSER CACHING part
+
+
+#------------ REDIRECTION option 1)
+# use this if your app directly on the root of the domain,
+# e.g. http://example_domain.com/index.html
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} -s [OR]
+    RewriteCond %{REQUEST_FILENAME} -l [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^.*$ - [NC,L]
+    RewriteRule ^(.*) index.html [NC,L]
+</IfModule>
+#------------
+
+#------------ REDIRECTION option 2)
+# Use this if your app is not directly on the root of the domain,
+# e.g. http://example_domain.com/directory_path/index.html
+# Important: replace directory_path with the relative path from
+# the domain to the index.html. Keep the first "/". Don't forget to comment option 1).
+#<IfModule mod_rewrite.c>
+#    RewriteEngine on
+#    RewriteCond %{REQUEST_FILENAME} -s [OR]
+#    RewriteCond %{REQUEST_FILENAME} -l [OR]
+#    RewriteCond %{REQUEST_FILENAME} -d
+#    RewriteRule ^.*$ - [NC,L]
+#    RewriteRule ^(.*) /directory_path/index.html [NC,L]
+#</IfModule>
+#------------

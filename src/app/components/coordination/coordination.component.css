@@ -1,0 +1,201 @@
+.backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 99;
+}
+
+.container ngb-pagination {
+    display: -webkit-inline-box;
+}
+
+th,
+td {
+    font-size: 12px;
+}
+
+th.order {
+    width: 3%;
+}
+
+th.CREATION {
+    width: 3%;
+}
+
+th.DELIVERY {
+    width: 3%;
+}
+
+th.TYPE {
+    width: 10%;
+}
+
+th.BTS {
+    width: 3%;
+}
+
+th.REGULAR {
+    width: 3%;
+}
+
+th.CP {
+    width: 3%;
+}
+
+th.BOX {
+    width: 3%;
+}
+
+th.COMMENTS {
+    width: 40%;
+}
+
+th.STATE {
+    width: 5%;
+}
+
+th.ACTION {
+    width: 20%;
+}
+
+table {
+    border: 2px solid #222c37;
+    border-radius: .25rem !important;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-border-radius: .25rem !important;
+    -moz-border-radius: .25rem !important;
+    -ms-border-radius: .25rem !important;
+    -o-border-radius: .25rem !important;
+}
+
+table img {
+    width: 60% !important;
+}
+
+input {
+    font-size: 12px;
+}
+
+.card-body,
+.col-md-3 {
+    padding: 0;
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+
+.custom-day.range,
+.custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+}
+
+.floatR {
+    float: right;
+}
+
+.spaCiO {
+    padding: 0px 20px;
+}
+
+.excel {
+    width: 30px !important;
+}
+
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+button.calendar,
+button.calendar:active {
+    width: 2.75rem;
+    background-image: url('/assets/calendar.png') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+}
+
+.material-switch>input[type="checkbox"] {
+    display: none;
+}
+
+.material-switch>label {
+    cursor: pointer;
+    height: 0px;
+    position: relative;
+    width: 20px;
+}
+
+.material-switch>label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    content: '';
+    height: 25px;
+    margin-top: -12px;
+    position: absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 42px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+}
+
+.material-switch>label::after {
+    background: #d40303;
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 25px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 32px;
+}
+
+table button {
+    padding: 3px 4.8px;
+    display: inline;
+}
+
+.material-switch>input[type="checkbox"]:checked+label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+
+.material-switch>input[type="checkbox"]:checked+label::after {
+    background-color: #06ba2f;
+    left: 16px;
+}
+
+label {
+    margin-bottom: 1.5rem;
+}
+
+.filters {
+    padding-top: 20px;
+}
+
+.pagination {
+    display: -webkit-inline-flex;
+}

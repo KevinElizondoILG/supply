@@ -1,0 +1,414 @@
+<app-header></app-header>
+<div class="container filters">
+    <button type="button" class="btn btn-outline-primary floatR" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="isCollapsed" aria-controls="collapseExample">
+    Filters
+</button>
+
+    <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+        <div class="col-md-8">
+            <form class="form-inline">
+                <div class="form-group ">
+                    <span class="spaCiO">From: </span>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="datefrom" [(ngModel)]="datefrom" ngbDatepicker #from="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="from.toggle()" type="button"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="spaCiO">To: </span>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dateto" [(ngModel)]="dateto" ngbDatepicker #to="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="to.toggle()" type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <p class="spaCi"> Show All</p>
+            <div class="material-switch pull-right">
+                <input id="someSwitchOptionDefault" [(ngModel)]="status" (Onchange)="(status ? 'ALL' : 'PENDING')" type="checkbox" />
+                <label for="someSwitchOptionDefault" class="label-default"></label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <a class="" (click)="exportAsXLSX(orders, datefrom, dateto)">Download <img src="assets/excel.png" class="excel" alt="Export to excel"> </a>
+            <a class="" (click)="exportStockAsXLSX(stock)">Stock <img src="assets/excel.png" class="excel" alt="Export to excel"> </a>
+        </div>
+        <!--  To: {{ dateto}} - ----{{ dateto.year }}-{{ dateto.month }}-{{ dateto.day }}
+        <p> From: {{ datefrom.year }}-{{ datefrom.month }}-{{ datefrom.day }} <br> To: {{ dateto.year }}-{{ dateto.month }}-{{ dateto.day }}
+    </p>-->
+    </div>
+</div>
+<div class="navbar-top container-fluid">
+    <h1 class="text-center">Orders Process</h1>
+    <table class="table table-hover table-responsive table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="order">ORDER#</th>
+                <th scope="col" class="order">STORE</th>
+                <th scope="col" class="CREATION">DATE CREATION</th>
+                <th scope="col" class="DELIVERY">DATE DELIVERY</th>
+                <th scope="col" class="TYPE">TYPE ORDER</th>
+                <th scope="col" class="BTS">BTS</th>
+                <th scope="col" class="REGULAR">REGULAR</th>
+                <th scope="col" class="CP">CP</th>
+                <th scope="col" class="BOX">TOTAL BOX</th>
+                <th scope="col" class="COMMENTS">COMMENTS</th>
+                <th scope="col" class="STATE">STATE</th>
+                <th scope="col" class="ACTION">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize -->
+            <tr *ngFor="let item of (orders | orderstatus: status | orderDateFilter: datefrom  : dateto  | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize); let i = index">
+                <td>{{item.NUMORDER}}</td>
+                <td>{{item.STORE}}</td>
+                <td scope="row">{{item.CREATEDATE}}</td>
+                <td>{{item.DATEDELIVERY}}</td>
+                <td>{{item.TYPE}}</td>
+                <td>{{ item.P_WBTS + item.P_MBTS + item.P_CBTS + item.P_ABTS}}</td>
+                <td>{{item.R_OTHERSQTY + item.P_WRE + item.P_MRE + item.P_CRE + item.P_ARE}}</td>
+                <td>{{item.R_CPQTY + item.P_WCP + item.P_MCP + item.P_CCP + item.P_ACP }}</td>
+                <td>{{item.R_OTHERSQTY + item.R_CPQTY + item.P_WBTS + item.P_WCP + item.P_WRE + item.P_MBTS + item.P_MCP + item.P_MRE + item.P_CBTS + item.P_CCP + item.P_CRE + item.P_ABTS + item.P_ACP + item.P_ARE}}</td>
+                <td>{{item.COMMENTSDELIVERY}}</td>
+                <td>{{item.STATUS}}</td>
+                <td>
+                    <button class="btn btn-outline-success" (click)="EditModal(item.NUMORDER)"> <img src="assets/resume.png" alt="Edit"></button>
+                    <button class="btn btn-outline-warning" (click)="ApproveModal(item.NUMORDER)"><img src="assets/checkmark-for-verification.png" alt="Approve"></button>
+                    <button class="btn btn-outline-danger" (click)="DeleteModal(item.NUMORDER, i)"><img src="assets/delete.png" alt="Delete"></button>
+                </td>
+                <tfoot>
+                    <!-- /.modal DELETE!-->
+                    <div [ngClass]="class" [ngStyle]="{'display':delete}"></div>
+                    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':delete}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>You are sure you want to delete this order? {{orderID}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" (click)="deleteOrder()">Delete</button>
+                                    <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal DELETE!-->
+                    <!-- /.modal APPROVE!-->
+                    <div [ngClass]="class" [ngStyle]="{'display':approve}"></div>
+                    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':approve}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>You are sure you want to approve this order?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" (click)="approveOrder(item.NUMORDER)">Approve</button>
+                                    <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal APPROVE!-->
+                    <!-- /.modal EDIT!-->
+                    <div [ngClass]="class" [ngStyle]="{'display':display}"></div>
+                    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--SECTION INVENTORY -->
+                                    <section class="row">
+
+                                        <div class="card col-md-3 col-lg-3 gender ">
+                                            <div class="card-header text-center " style="background-color:#fff ">
+                                                <img class="card-img-top " style="width: 20%; align-content: center " src='../../../..assets/WOMENS.svg' alt=" ">
+                                            </div>
+                                            <div class="card-body ">
+                                                <h6 class="card-title text-center">WOMENS</h6>
+                                                <table class="table thead-dark table-striped table-sm table-bordered ">
+                                                    <thead class="thead-dark ">
+                                                        <tr>
+                                                            <th scope="col "> Type </th>
+                                                            <th scope="col "> Stock </th>
+                                                            <th scope="col "> Request</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row ">CP</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">REGULAR</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'WOMENS': 'REGULAR'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="WRE" [(ngModel)]="WRE"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">BTS </th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'WOMENS': 'BTS'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="WBTS" [(ngModel)]="WBTS"></td>
+                                                        </tr>
+                                                        <tr class="totalorder">
+                                                            <th scope="row ">TOTAL</th>
+                                                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'WOMENS'">{{item}}</td>
+                                                            <td class="text-center"> {{ WRE + WBTS}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="card col-md-3 col-lg-3 gender ">
+                                            <div class="card-header text-center " style="background-color:#fff ">
+                                                <img class="card-img-top " style="width: 20%; align-content: center " src='../../../..assets/MENS.svg' alt=" ">
+                                            </div>
+                                            <div class="card-body ">
+                                                <h6 class="card-title text-center">MENS</h6>
+                                                <table class="table thead-dark table-striped table-sm table-bordered ">
+                                                    <thead class="thead-dark ">
+                                                        <tr>
+                                                            <th scope="col "> Type </th>
+                                                            <th scope="col "> Stock </th>
+                                                            <th scope="col "> Request</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row ">CP</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">REGULAR</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'MENS': 'REGULAR'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="MRE" [(ngModel)]="MRE"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">BTS </th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'MENS': 'BTS'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="MBTS" [(ngModel)]="MBTS"></td>
+                                                        </tr>
+                                                        <tr class="totalorder">
+                                                            <th scope="row ">TOTAL</th>
+                                                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'MENS'">{{item}}</td>
+                                                            <td class="text-center"> {{ MRE + MBTS}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="card col-md-3 col-lg-3 gender ">
+                                            <div class="card-header text-center " style="background-color:#fff ">
+                                                <img class="card-img-top " style="width: 20%; align-content: center " src='../../../..assets/CHILDRENS.svg' alt=" ">
+                                            </div>
+                                            <div class="card-body ">
+                                                <h6 class="card-title text-center">CHILDRENS</h6>
+                                                <table class="table thead-dark table-striped  table-bordered  table-sm ">
+                                                    <thead class="thead-dark ">
+                                                        <tr>
+                                                            <th scope="col "> Type </th>
+                                                            <th scope="col "> Stock </th>
+                                                            <th scope="col "> Request</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row ">CP</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">REGULAR</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'REGULAR'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="CRE" [(ngModel)]="CRE"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">BTS </th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'BTS'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="CBTS" [(ngModel)]="CBTS"></td>
+                                                        </tr>
+                                                        <tr class="totalorder">
+                                                            <th scope="row ">TOTAL</th>
+                                                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'CHILDRENS'">{{item}}</td>
+                                                            <td class="text-center"> {{ CRE + CBTS}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="card col-md-3 col-lg-3 gender ">
+                                            <div class="card-header text-center " style="background-color:#fff ">
+                                                <img class="card-img-top " style="width: 20%; align-content: center " src='../../../..assets/ACCESORIES.svg' alt=" ">
+                                            </div>
+                                            <div class="card-body ">
+                                                <h6 class="card-title text-center">ACCESORIES</h6>
+                                                <table class="table thead-dark table-striped table-sm table-bordered ">
+                                                    <thead class="thead-dark ">
+                                                        <tr>
+                                                            <th scope="col "> Type </th>
+                                                            <th scope="col "> Stock </th>
+                                                            <th scope="col "> Request</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row ">CP</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">REGULAR</th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'REGULAR'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="ARE" [(ngModel)]="ARE"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row ">BTS </th>
+                                                            <td class="text-center">
+                                                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'BTS'">{{item.CANTIDAD}}
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center"><input type="number" class="form-control" name="ABTS" [(ngModel)]="ABTS"></td>
+                                                        </tr>
+                                                        <tr class="totalorder">
+                                                            <th scope="row ">TOTAL</th>
+                                                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'ACCESORIES'"> {{item}}</td>
+                                                            <td class="text-center"> {{ ARE + ABTS}}</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="row info" *ngFor="let item of stock | totalstock: 'CP'">
+                                        <div class="col-md-4 text-center ">
+                                            <p>CP: <span class="badge badge-danger"> {{item}}</span></p>
+                                        </div>
+                                        <div class="col-md-4 text-center  ">
+                                            <p>Other: <span class="badge badge-danger">{{ WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}} </span></p>
+                                        </div>
+                                        <div class="col-md-4 text-center ">
+                                            <p>TOTAL: <span class="badge badge-danger">{{item + WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}}</span></p>
+                                        </div>
+                                    </section>
+                                    <section class="row">
+                                        <div class="container-fuid">
+                                            <p class="pick"> Change Delivery date:
+                                                <input type="checkbox" [(ngModel)]="delivery" name="delivery" (change)="deliverycheked($event)" />
+                                            </p>
+                                            <br>
+                                            <!-- CHANGE DATE DELIVERY -->
+                                            <div class="row">
+                                                <div *ngIf="delivery" class="col-md-4 form-group">
+                                                    <div class="form-inline">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" style='width: 50px;' for="name">Date: </label>
+                                                            <input type="date" style='width: 200px;' class="form-control " [(ngModel)]="datedelivery" name="datedelivery" id="" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label" style='width: 50px;' for="name">Hour: </label>
+                                                            <input type="time" style='width: 200px;' class="form-control" [(ngModel)]="hourdelivery" name="hourdelivery" id="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="delivery" class="col-md-4 form-group">
+                                                    Reason:
+                                                    <select class="form-control" name="reason.name" [(ngModel)]="reasonselected" placeholder="Select a reason">
+                                         <option *ngFor="let  reason of  reasons" [ngValue]="reason.name">{{reason.name}} </option>
+                                       </select>
+
+                                                </div>
+                                                <div *ngIf="!delivery" class="col-md-12 form-group">
+                                                    Comments:
+                                                    <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30" rows="2"></textarea>
+                                                </div>
+                                                <div *ngIf="delivery" class="col-md-4 form-group">
+                                                    Comments:
+                                                    <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" (click)="EditOrder()">Save</button>
+                                    <button type="button" class="btn btn-primary" (click)="onCloseHandled()">Close</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal EDIT!-->
+                </tfoot>
+            </tr>
+        </tbody>
+
+    </table>
+    <div class="container">
+        <div class="text-center">
+            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="orders?.length" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+    </div>
