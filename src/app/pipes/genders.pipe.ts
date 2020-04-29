@@ -13,7 +13,7 @@ export class GendersPipe implements PipeTransform {
        }
   transform(value: any, genero?: string, prioridad?: string): any {
 if ( value !== undefined) {
-
+//console.log(value)
     return value.filter( item => item.NOMBRE_CATEGORIA === genero && item.PRIORIDAD === prioridad);
 
   }

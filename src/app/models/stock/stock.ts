@@ -13,5 +13,12 @@ export class TigoStock {
   public DESCRIPCIONLARGA: string;
   public DUA: string;
   public CANTIDADUNIDADES: number;
+}
 
+export class StockReportGeneral {
+  public IDARTICULO: string;
+  public IDARTICULOCLIENTE: string;
+  public DESCRIPCIONLARGA: string;
+  public DUA: string;
+  public CANTIDADUNIDADES: number;
 }

@@ -8,4 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'Payless';
 }
-console.log('Created by ' + String.fromCodePoint(128568) + ' "https://gianko.com" ' + String.fromCodePoint(128561, 128640));
+console.log('Hecho con ' +
+  ' por "https://gianko.com" ' + String.fromCodePoint(128561, 128640));

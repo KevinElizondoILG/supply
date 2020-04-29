@@ -33,6 +33,8 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { SucursalPipe } from './pipes/sucursal.pipe';
 import { StockfiltersPipe } from './pipes/stockfilters.pipe';
 import { DuaPipe } from './pipes/dua.pipe';
+import { PaylessKpiComponent } from './components/payless-kpi/payless-kpi.component';
+import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { DuaPipe } from './pipes/dua.pipe';
     InventoryComponent,
     SucursalPipe,
     StockfiltersPipe,
-    DuaPipe
+    DuaPipe,
+    PaylessKpiComponent,
+    StockreportGeneralComponent
   ],
   imports: [
     BrowserModule,

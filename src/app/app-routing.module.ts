@@ -1,3 +1,4 @@
+import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
 import { CoordinationComponent } from './components/coordination/coordination.component';
 import { AuthGuard } from './auth.guard';
 import { RegularComponent } from './components/order/regular/regular.component';
@@ -8,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InventoryComponent } from './components/inventory/inventory.component';
+import { PaylessKpiComponent } from './components/payless-kpi/payless-kpi.component';
+
 
 
 
@@ -19,7 +22,9 @@ const routes: Routes = [
   { path: 'order/picking', component: PickingComponent, canActivate: [AuthGuard] },
   { path: 'order/regular', component: RegularComponent, canActivate: [AuthGuard] },
   { path: 'coordination', component: CoordinationComponent, canActivate: [AuthGuard] },
-  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] }
+  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
+  { path: 'InvGeneralReport', component: StockreportGeneralComponent, canActivate: [AuthGuard] },
+  { path: 'payless-kpi', component: PaylessKpiComponent, canActivate: [AuthGuard] }
   /*  { path: 'coordination', component:  (() => {
     return sessionStorage.getItem('roll') === 'EXT_SUC' ? CoordinationComponent : LoginComponent;
   })(), canActivate: [AuthGuard]}*/

@@ -3,3 +3,6 @@
 body {
     padding-top: 68px;
 }
+p,td{
+  font-size: 10px !important;
+}

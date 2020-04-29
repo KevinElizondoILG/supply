@@ -49,7 +49,7 @@ export class RegularComponent implements OnInit {
   constructor( private _stock: ApistockService, private router: Router) {
     this.store =  localStorage.getItem('store');
     this.username =   localStorage.getItem('currentUser');
-    this.stock = JSON.parse(localStorage.getItem('stock'));
+   // this.stock   = JSON.parse(localStorage.getItem('stock'));
     this.OthersQty = 0;
     this.CPQty = 0;
     this.delivery = false;
@@ -64,6 +64,9 @@ export class RegularComponent implements OnInit {
 
    ngOnInit() {
     this.xx = true;
+    const data= this._stock.getStoreStock(this.store);
+    data.subscribe( res => {this.stock =  res})
+    
   }
 
 

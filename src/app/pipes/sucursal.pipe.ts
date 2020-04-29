@@ -26,7 +26,7 @@ export class SucursalPipe implements PipeTransform {
 
     } else {
       const resArr = [];
-      console.log('Pipe: ' + args);
+      //  console.log('Pipe: ' + args);
       values.forEach(function (item) {
         const i = resArr.findIndex(x => x.IDSUCURSAL === item.IDSUCURSAL);
         if (i <= -1) {

@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   public isAdmin: boolean;
   public menu: any;
   public route = JSON.parse(localStorage.getItem('route'));
+  public country:string;
 
   constructor(private _ls: LoginService) {
 
@@ -29,39 +30,56 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.roll === 'EXT_SUC' ? this.isAdmin = true : this.isAdmin = false,
-
-      this.isAdmin === true ?
-        (
-          Number(localStorage.getItem('consorcio')) === 40 ? (
-            this.menu = [{ link: '/inventory', menu: 'Inventario' }]) :
-            (
-              this.menu = [
-                { link: '/order', menu: 'Order' },
-                { link: '/orders', menu: 'Orders' }
-              ]
-            )
-        )
-        :
-        (
-          localStorage.getItem('store') ? (
+    this.country = localStorage.getItem("country");
+    switch (this.country) {
+      case 'CRC':
+        this.roll === 'EXT_SUC' ?
+        this.isAdmin = true : this.isAdmin = false,
+         this.isAdmin === true ?
+           (
             Number(localStorage.getItem('consorcio')) === 40 ? (
               this.menu = [{ link: '/inventory', menu: 'Inventario' }]) :
               (
                 this.menu = [
-                  { link: '/coordination', menu: 'Coordination' }
+                  { link: '/order', menu: 'Order' },
+                  { link: '/orders', menu: 'Orders' }
                 ]
               )
-          ) :
-            // SuperUser Access ILG people
-            (
-              this.menu = [
-                { link: '/coordination', menu: 'Payless' },
-                { link: '/inventory', menu: 'Tigo' }
-              ]
-            )
-        );
+           )
+           :
+           (
+             localStorage.getItem('store') ? (
+               Number(localStorage.getItem('consorcio')) === 40 ? (
+                 this.menu = [{ link: '/inventory', menu: 'Inventario' }]) :
+                 (
+                   this.menu = [
+                     { link: '/coordination', menu: 'Coordination' },
+                     { link: '/payless-kpi', menu: 'KPIs' }
+                   ]
+                 )
+             ) :
+               // SuperUser Access ILG people
+               (
+                 this.menu = [
+                   { link: '/coordination', menu: 'Payless' },
+                   { link: '/inventory', menu: 'Tigo' },
+                   { link: '/payless-kpi', menu: 'KPIs' },
+                   { link: '/InvGeneralReport', menu: 'Inventarios'+localStorage.getItem('country') }
+
+                 ]
+               )
+           );
+
+      break;
+      case 'PTY':
+          this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }]
+          break;
+
+      default:
+        break;
+    }
+
+
 
 
 
