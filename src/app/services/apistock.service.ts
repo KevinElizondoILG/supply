@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Stock, TigoStock, StockReportGeneral } from './../models/stock/stock';
+import { Stock, TigoStock, StockReportGeneral, FEFOStock } from './../models/stock/stock';
 
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -20,11 +20,11 @@ export class ApistockService {
   private ENV = environment
   private SERVER = environment.SERVER;
   private API_URL = environment.API_URL;
-  private CRC= this.SERVER + this.API_URL +this.ENV.CRC+this.ENV.TOKEN
-  private PTY= this.SERVER + this.API_URL +this.ENV.PTY+this.ENV.TOKEN
-  private PP= this.SERVER + this.API_URL +this.ENV.PP+this.ENV.TOKEN
-  private NPP= this.SERVER + this.API_URL +this.ENV.NPP+this.ENV.TOKEN
-  private TEST= this.SERVER + this.API_URL +this.ENV.TEST+this.ENV.TOKEN
+  private CRC = this.SERVER + this.API_URL + this.ENV.CRC + this.ENV.TOKEN
+  private PTY = this.SERVER + this.API_URL + this.ENV.PTY + this.ENV.TOKEN
+  private PP = this.SERVER + this.API_URL + this.ENV.PP + this.ENV.TOKEN
+  private NPP = this.SERVER + this.API_URL + this.ENV.NPP + this.ENV.TOKEN
+  private TEST = this.SERVER + this.API_URL + this.ENV.TEST + this.ENV.TOKEN
   private store = localStorage.getItem('store');
   private order;
   private x: string;
@@ -35,7 +35,7 @@ export class ApistockService {
   }
 
   getStoreStock(b?): Observable<Stock> {
-    return this._http.get<Stock>( this.CRC + this.ENV.INVETARIOMASTERBOXSUCURSAL + this.store);
+    return this._http.get<Stock>(this.CRC + this.ENV.INVETARIOMASTERBOXSUCURSAL + this.store);
   }
   getStock(): Observable<Stock> {
     return this._http.get<Stock>(this.CRC + this.ENV.INVENTARIOMASTERBOX);
@@ -44,15 +44,16 @@ export class ApistockService {
   getTigoStock(): Observable<TigoStock> {
     return this._http.get<TigoStock>(this.CRC + this.ENV.TIGOINVETARIO);
   }
+  getStockFEFO(): Observable<FEFOStock> {
+    return this._http.post<FEFOStock>(this.CRC + this.ENV.INVENTARIOCONSORCIO_FEFO + localStorage.getItem("consorcio"), {});
+  }
   getStockReportGeneral(country): Observable<StockReportGeneral> {
     switch (country) {
       case 'PTY':
         return this._http.get<StockReportGeneral>(this.PTY + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"));
         break;
       case 'CRC':
-        return this._http.get<StockReportGeneral>(this.CRC + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"));
-        break;
-      default:
+        return this._http.post<StockReportGeneral>(this.CRC + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"), {});
         break;
     }
   }
@@ -63,9 +64,7 @@ export class ApistockService {
         break;
       case 'CRC':
         return this._http.get<StockReportGeneral>(this.CRC + this.ENV.INVENTARIOALL);
-        break;
-      default:
-        break;
+        break;;
     }
 
   }
@@ -77,12 +76,12 @@ export class ApistockService {
   }
 
   getStoreOrders(body) {
-    return this._http.get(this.PP +this.ENV.ORDERBYSTORE + this.store);
+    return this._http.get(this.PP + this.ENV.ORDERBYSTORE + this.store);
   }
 
   getOrder(body) {
     this.order = body;
-    return this._http.get(this.PP +this.ENV.ORDERBYID + this.order);
+    return this._http.get(this.PP + this.ENV.ORDERBYID + this.order);
   }
   getAllStoreOrders() {
     this.order = {};
@@ -92,7 +91,7 @@ export class ApistockService {
 
 
   getDeleteOrder(body) {
-    return this._http.get(this.PP +this.ENV.ORDERDELELTE + body).subscribe((ok) => {
+    return this._http.get(this.PP + this.ENV.ORDERDELELTE + body).subscribe((ok) => {
       return ok = 'ok';
     });
   }

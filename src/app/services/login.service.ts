@@ -29,12 +29,12 @@ export class LoginService implements OnInit {
   public route: any;
   public consorcio: string;
   public country: string;
-  private ENV=environment
-  private CRC= this.SERVER + this.API_URL +this.ENV.CRC+this.ENV.TOKEN
-  private PTY= this.SERVER + this.API_URL +this.ENV.PTY+this.ENV.TOKEN
-  private PP= this.SERVER + this.API_URL +this.ENV.PP+this.ENV.TOKEN
-  private NPP= this.SERVER + this.API_URL +this.ENV.NPP+this.ENV.TOKEN
-  private TEST= this.SERVER + this.API_URL +this.ENV.TEST+this.ENV.TOKEN
+  private ENV = environment
+  private CRC = this.SERVER + this.API_URL + this.ENV.CRC + this.ENV.TOKEN
+  private PTY = this.SERVER + this.API_URL + this.ENV.PTY + this.ENV.TOKEN
+  private PP = this.SERVER + this.API_URL + this.ENV.PP + this.ENV.TOKEN
+  private NPP = this.SERVER + this.API_URL + this.ENV.NPP + this.ENV.TOKEN
+  private TEST = this.SERVER + this.API_URL + this.ENV.TEST + this.ENV.TOKEN
 
 
 
@@ -78,29 +78,35 @@ export class LoginService implements OnInit {
         if (this.country === "CRC") {
           switch (Number(this.consorcio)) {
             case 32:
-              localStorage.setItem('store', this.store);
-              this.roll === 'EXT_SUC' ? (
-                this.isAdmin = true,
-                this.getRoute(this.store).subscribe(rou => {
-                  this.route = rou,
-                    localStorage.setItem('route', JSON.stringify(this.route));
-                  location.reload();
-                  this._stock.getStoreStock(this.store).subscribe(stock => {
-                    localStorage.setItem('stock', JSON.stringify(stock));
-                  });
-                })
-              ) : this.isAdmin = false;
-              this.isAdmin === true ? this.router.navigate(['/order']) : this.router.navigate(['/coordination']);
+              switch (this.roll) {
+
+                case 'EXT_SUC':
+                  localStorage.setItem('store', this.store);
+                  this.getRoute(this.store).subscribe(rou => {
+                    this.route = rou,
+                      localStorage.setItem('route', JSON.stringify(this.route));
+                    location.reload();
+                    this._stock.getStoreStock(this.store).subscribe(stock => {
+                      localStorage.setItem('stock', JSON.stringify(stock));
+                    });
+                  })
+                  this.router.navigate(['/order']);
+                  break;
+                case 'EXT_CON':
+                  this.router.navigate(['/coordination']);
+                  break;
+              }
+
+
+
               break;
 
             case 40:
-              localStorage.setItem('store', this.store);
-              //   this.roll === 'INT' ? (console.log('soy admin ILG')) : (console.log('SOY' + this.roll));
               this.router.navigate(['/inventory']);
               break;
 
             default:
-              this.router.navigate(['/coordination']);
+              this.router.navigate(['/InvGeneralReport']);
               break;
           }
         } else if (this.country === "PTY") {

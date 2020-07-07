@@ -35,6 +35,8 @@ import { StockfiltersPipe } from './pipes/stockfilters.pipe';
 import { DuaPipe } from './pipes/dua.pipe';
 import { PaylessKpiComponent } from './components/payless-kpi/payless-kpi.component';
 import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
+import { MovementsComponent } from './components/movements/movements.component';
+import { FefoComponent } from './components/fefo/fefo.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { StockreportGeneralComponent } from './components/stockreport-general/st
     StockfiltersPipe,
     DuaPipe,
     PaylessKpiComponent,
-    StockreportGeneralComponent
+    StockreportGeneralComponent,
+    MovementsComponent,
+    FefoComponent
   ],
   imports: [
     BrowserModule,

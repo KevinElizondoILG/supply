@@ -1,3 +1,5 @@
+import { FefoComponent } from './components/fefo/fefo.component';
+import { MovementsComponent } from './components/movements/movements.component';
 import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
 import { CoordinationComponent } from './components/coordination/coordination.component';
 import { AuthGuard } from './auth.guard';
@@ -24,7 +26,9 @@ const routes: Routes = [
   { path: 'coordination', component: CoordinationComponent, canActivate: [AuthGuard] },
   { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
   { path: 'InvGeneralReport', component: StockreportGeneralComponent, canActivate: [AuthGuard] },
-  { path: 'payless-kpi', component: PaylessKpiComponent, canActivate: [AuthGuard] }
+  { path: 'payless-kpi', component: PaylessKpiComponent, canActivate: [AuthGuard] },
+  { path: 'movements', component: MovementsComponent, canActivate: [AuthGuard] },
+  { path: 'fefostock', component: FefoComponent, canActivate: [AuthGuard] }
   /*  { path: 'coordination', component:  (() => {
     return sessionStorage.getItem('roll') === 'EXT_SUC' ? CoordinationComponent : LoginComponent;
   })(), canActivate: [AuthGuard]}*/

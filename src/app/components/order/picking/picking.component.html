@@ -1,275 +1,280 @@
 <app-header></app-header>
-<form #fromOrders="ngForm"  >
+<form #fromOrders="ngForm">
 
-    <br>
-    <!--SECTION INVENTORY -->
-    <section class="form-row">
+  <br>
+  <!--SECTION INVENTORY -->
+  <section class="form-row">
 
-        <div class="form-group col card col-md-3 col-lg-3 gender ">
-            <div class="card-header text-center " style="background-color:#fff ">
-                <img class="card-img-top " style="width: 20%; align-content: center " src='assets/WOMENS.svg' alt=" ">
-            </div>
-            <div class="card-body ">
-                <h3 class="card-title text-center">WOMENS</h3>
-                <table class="table thead-dark table-striped table-sm table-bordered ">
-                    <thead class="thead-dark ">
-                        <tr>
-                            <th scope="col "> Type </th>
-                            <th scope="col "> Stock </th>
-                            <th scope="col "> Request</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row ">CP</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">REGULAR</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'WOMENS': 'REGULAR'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="WRE" [(ngModel)]="WRE"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">BTS </th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'WOMENS': 'BTS'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="WBTS" [(ngModel)]="WBTS"></td>
-                        </tr>
-                        <tr class="totalorder">
-                            <th scope="row ">TOTAL</th>
-                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'WOMENS'">{{item}}</td>
-                            <td class="text-center"> {{ WRE + WBTS}}</td>
-                        </tr>
-                    </tbody>
-
-                </table>
-
-
-            </div>
-        </div>
-        <div class="card col-md-3 col-lg-3 gender ">
-            <div class="card-header text-center " style="background-color:#fff ">
-                <img class="card-img-top " style="width: 20%; align-content: center " src='assets/MENS.svg' alt=" ">
-            </div>
-            <div class="card-body ">
-                <h3 class="card-title text-center">MENS</h3>
-                <table class="table thead-dark table-striped table-sm table-bordered ">
-                    <thead class="thead-dark ">
-                        <tr>
-                            <th scope="col "> Type </th>
-                            <th scope="col "> Stock </th>
-                            <th scope="col "> Request</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row ">CP</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">REGULAR</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'MENS': 'REGULAR'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="MRE" [(ngModel)]="MRE"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">BTS </th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'MENS': 'BTS'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="MBTS" [(ngModel)]="MBTS"></td>
-                        </tr>
-                        <tr class="totalorder">
-                            <th scope="row ">TOTAL</th>
-                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'MENS'">{{item}}</td>
-                            <td class="text-center"> {{ MRE + MBTS}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-        <div class="card col-md-3 col-lg-3 gender ">
-            <div class="card-header text-center " style="background-color:#fff ">
-                <img class="card-img-top " style="width: 20%; align-content: center " src='assets/CHILDRENS.svg' alt=" ">
-            </div>
-            <div class="card-body ">
-                <h3 class="card-title text-center">CHILDRENS</h3>
-                <table class="table thead-dark table-striped  table-bordered  table-sm ">
-                    <thead class="thead-dark ">
-                        <tr>
-                            <th scope="col "> Type </th>
-                            <th scope="col "> Stock </th>
-                            <th scope="col "> Request</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row ">CP</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">REGULAR</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'REGULAR'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="CRE" [(ngModel)]="CRE"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">BTS </th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'BTS'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="CBTS" [(ngModel)]="CBTS"></td>
-                        </tr>
-                        <tr class="totalorder">
-                            <th scope="row ">TOTAL</th>
-                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'CHILDRENS'">{{item}}</td>
-                            <td class="text-center"> {{ CRE + CBTS}}</td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-        <div class="card col-md-3 col-lg-3 gender ">
-            <div class="card-header text-center " style="background-color:#fff ">
-                <img class="card-img-top " style="width: 20%; align-content: center " src='assets/ACCESORIES.svg' alt=" ">
-            </div>
-            <div class="card-body ">
-                <h3 class="card-title text-center">ACCESORIES</h3>
-                <table class="table thead-dark table-striped table-sm table-bordered ">
-                    <thead class="thead-dark ">
-                        <tr>
-                            <th scope="col "> Type </th>
-                            <th scope="col "> Stock </th>
-                            <th scope="col "> Request</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row ">CP</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">REGULAR</th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'REGULAR'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="ARE" [(ngModel)]="ARE"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row ">BTS </th>
-                            <td class="text-center">
-                                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'BTS'">{{item.CANTIDAD}}
-                                </div>
-                            </td>
-                            <td class="text-center"><input type="number" class="form-control" name="ABTS" [(ngModel)]="ABTS"></td>
-                        </tr>
-                        <tr class="totalorder">
-                            <th scope="row ">TOTAL</th>
-                            <td class="text-center" *ngFor="let item of stock | sumgenders: 'ACCESORIES'"> {{item}}</td>
-                            <td class="text-center"> {{ ARE + ABTS}}</td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-
-    </section>
-    <section class="row info" *ngFor="let item of stock | totalstock: 'CP'">
-        <div class="col-md-4 text-center ">
-            <p>CP: <span class="badge badge-danger"> {{item}}</span></p>
-        </div>
-        <div class="col-md-4 text-center  ">
-            <p>Other: <span class="badge badge-danger">{{ WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}} </span></p>
-        </div>
-        <div class="col-md-4 text-center ">
-            <p>TOTAL: <span class="badge badge-danger">{{item + WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}}</span></p>
-        </div>
-    </section>
-    <section class="row">
-        <div class="container-fuid">
-            <p class="pick"> Change Delivery date:
-                <input type="checkbox" [(ngModel)]="delivery" name="delivery" (change)="deliverycheked($event)" />
-            </p>
-            <br>
-            <!-- CHANGE DATE DELIVERY -->
-            <div class="row">
-                <div *ngIf="delivery" class="col-md-4 form-group">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <label class="col-form-label" style='width: 50px;' for="name">Date: </label>
-                            <input type="date" style='width: 200px;' class="form-control " [(ngModel)]="datedelivery" name="datedelivery" id="" />
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label" style='width: 50px;' for="name">Hour: </label>
-                            <input type="time" style='width: 200px;' class="form-control" [(ngModel)]="hourdelivery" name="hourdelivery" id="" />
-                        </div>
-                    </div>
+    <div class="form-group col card col-md-3 col-lg-3 gender ">
+      <div class="card-header text-center " style="background-color:#fff ">
+        <img class="card-img-top " style="width: 20%; align-content: center " src='assets/WOMENS.svg' alt=" ">
+      </div>
+      <div class="card-body ">
+        <h3 class="card-title text-center">WOMENS</h3>
+        <table class="table thead-dark table-striped table-sm table-bordered ">
+          <thead class="thead-dark ">
+            <tr>
+              <th scope="col "> Prioridad </th>
+              <th scope="col "> Stock </th>
+              <th scope="col "> Solicitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row ">CP</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
                 </div>
-                <div *ngIf="delivery" class="col-md-4 form-group">
-                    Reason:
-                    <select class="form-control" name="reason.name" [(ngModel)]="reasonselected" placeholder="Select a reason">
-                    <option *ngFor="let  reason of  reasons" [ngValue]="reason.name">{{reason.name}} </option>
-                  </select>
+              </td>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'WOMENS': 'CP'">{{item.CANTIDAD}}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row ">REGULAR</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'WOMENS': 'REGULAR'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="WRE" [(ngModel)]="WRE"></td>
+            </tr>
+            <tr>
+              <th scope="row ">BTS </th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'WOMENS': 'BTS'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="WBTS" [(ngModel)]="WBTS"></td>
+            </tr>
+            <tr class="totalorder">
+              <th scope="row ">TOTAL</th>
+              <td class="text-center" *ngFor="let item of stock | sumgenders: 'WOMENS'">{{item}}</td>
+              <td class="text-center"> {{ WRE + WBTS}}</td>
+            </tr>
+          </tbody>
 
+        </table>
+
+
+      </div>
+    </div>
+    <div class="card col-md-3 col-lg-3 gender ">
+      <div class="card-header text-center " style="background-color:#fff ">
+        <img class="card-img-top " style="width: 20%; align-content: center " src='assets/MENS.svg' alt=" ">
+      </div>
+      <div class="card-body ">
+        <h3 class="card-title text-center">MENS</h3>
+        <table class="table thead-dark table-striped table-sm table-bordered ">
+          <thead class="thead-dark ">
+            <tr>
+              <th scope="col "> Prioridad </th>
+              <th scope="col "> Stock </th>
+              <th scope="col "> Solicitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row ">CP</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
                 </div>
-                <div *ngIf="!delivery" class="col-md-12 form-group">
-                    Comments:
-                    <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30" rows="2"></textarea>
+              </td>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'MENS': 'CP'">{{item.CANTIDAD}}
                 </div>
-                <div *ngIf="delivery" class="col-md-4 form-group">
-                    Comments:
-                    <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30" rows="2"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row ">REGULAR</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'MENS': 'REGULAR'">{{item.CANTIDAD}}
                 </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="MRE" [(ngModel)]="MRE"></td>
+            </tr>
+            <tr>
+              <th scope="row ">BTS </th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'MENS': 'BTS'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="MBTS" [(ngModel)]="MBTS"></td>
+            </tr>
+            <tr class="totalorder">
+              <th scope="row ">TOTAL</th>
+              <td class="text-center" *ngFor="let item of stock | sumgenders: 'MENS'">{{item}}</td>
+              <td class="text-center"> {{ MRE + MBTS}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    <div class="card col-md-3 col-lg-3 gender ">
+      <div class="card-header text-center " style="background-color:#fff ">
+        <img class="card-img-top " style="width: 20%; align-content: center " src='assets/CHILDRENS.svg' alt=" ">
+      </div>
+      <div class="card-body ">
+        <h3 class="card-title text-center">CHILDRENS</h3>
+        <table class="table thead-dark table-striped  table-bordered  table-sm ">
+          <thead class="thead-dark ">
+            <tr>
+              <th scope="col "> Prioridad </th>
+              <th scope="col "> Stock </th>
+              <th scope="col "> Solicitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row ">CP</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'CP'">{{item.CANTIDAD}}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row ">REGULAR</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'REGULAR'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="CRE" [(ngModel)]="CRE"></td>
+            </tr>
+            <tr>
+              <th scope="row ">BTS </th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'CHILDRENS': 'BTS'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="CBTS" [(ngModel)]="CBTS"></td>
+            </tr>
+            <tr class="totalorder">
+              <th scope="row ">TOTAL</th>
+              <td class="text-center" *ngFor="let item of stock | sumgenders: 'CHILDRENS'">{{item}}</td>
+              <td class="text-center"> {{ CRE + CBTS}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    <div class="card col-md-3 col-lg-3 gender ">
+      <div class="card-header text-center " style="background-color:#fff ">
+        <img class="card-img-top " style="width: 20%; align-content: center " src='assets/ACCESORIES.svg' alt=" ">
+      </div>
+      <div class="card-body ">
+        <h3 class="card-title text-center">ACCESORIES</h3>
+        <table class="table thead-dark table-striped table-sm table-bordered ">
+          <thead class="thead-dark ">
+            <tr>
+              <th scope="col "> Prioridad </th>
+              <th scope="col "> Stock </th>
+              <th scope="col "> Solicitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row ">CP</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'CP'">{{item.CANTIDAD}}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row ">REGULAR</th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'REGULAR'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="ARE" [(ngModel)]="ARE"></td>
+            </tr>
+            <tr>
+              <th scope="row ">BTS </th>
+              <td class="text-center">
+                <div *ngFor="let item of stock | genders: 'ACCESORIES': 'BTS'">{{item.CANTIDAD}}
+                </div>
+              </td>
+              <td class="text-center"><input type="number" class="form-control" name="ABTS" [(ngModel)]="ABTS"></td>
+            </tr>
+            <tr class="totalorder">
+              <th scope="row ">TOTAL</th>
+              <td class="text-center" *ngFor="let item of stock | sumgenders: 'ACCESORIES'"> {{item}}</td>
+              <td class="text-center"> {{ ARE + ABTS}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+
+  </section>
+  <section class="row info" *ngFor="let item of stock | totalstock: 'CP'">
+    <div class="col-md-4 text-center ">
+      <p>CP: <span class="badge badge-danger"> {{item}}</span></p>
+    </div>
+    <div class="col-md-4 text-center  ">
+      <p>Otros: <span class="badge badge-danger">{{ WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}} </span></p>
+    </div>
+    <div class="col-md-4 text-center ">
+      <p>TOTAL: <span class="badge badge-danger">{{item + WRE + WBTS  + MRE + MBTS +  CRE + CBTS + ARE + ABTS}}</span>
+      </p>
+    </div>
+  </section>
+  <section class="row">
+    <div class="container-fuid">
+      <p class="pick"> Cambiar fecha de entrega:
+        <input type="checkbox" [(ngModel)]="delivery" name="delivery" (change)="deliverycheked($event)" />
+      </p>
+      <br>
+      <!-- CHANGE DATE DELIVERY -->
+      <div class="row">
+        <div *ngIf="delivery" class="col-md-4 form-group">
+          <div class="form-inline">
+            <div class="form-group">
+              <label class="col-form-label" style='width: 50px;' for="name">Fecha: </label>
+              <input type="date" style='width: 200px;' class="form-control " [(ngModel)]="datedelivery"
+                name="datedelivery" id="" />
             </div>
+            <div class="form-group">
+              <label class="col-form-label" style='width: 50px;' for="name">Hora: </label>
+              <input type="time" style='width: 200px;' class="form-control" [(ngModel)]="hourdelivery"
+                name="hourdelivery" id="" />
+            </div>
+          </div>
         </div>
-    </section>
-    <button type="button" class="btn btn-danger float-right submitbtn" (click)="saveOrder(stock)"> Submit</button>
+        <div *ngIf="delivery" class="col-md-4 form-group">
+          Razón:
+          <select class="form-control" name="reason.name" [(ngModel)]="reasonselected" placeholder="Select a reason">
+            <option *ngFor="let  reason of  reasons" [ngValue]="reason.name">{{reason.name}} </option>
+          </select>
+
+        </div>
+        <div *ngIf="!delivery" class="col-md-12 form-group">
+          Comentarios:
+          <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30"
+            rows="2"></textarea>
+        </div>
+        <div *ngIf="delivery" class="col-md-4 form-group">
+          Comentarios:
+          <textarea name="commentsdelivery" id="" class="form-control" [(ngModel)]="commentsdelivery" cols="30"
+            rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+  <button type="button" class="btn btn-danger float-right submitbtn" (click)="saveOrder(stock)"> Enviar</button>
 </form>

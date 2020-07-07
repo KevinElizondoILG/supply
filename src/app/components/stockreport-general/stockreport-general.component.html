@@ -2,12 +2,12 @@
 <ng-container class="container filters">
   <div class="row">
     <div class="col-md-3 col-md-pull-2 text-center">
-    <!--  <button type="button" class="btn btn-outline-danger " (click)="clean()">Borrar Filtros</button> -->
+      <!--  <button type="button" class="btn btn-outline-danger " (click)="clean()">Borrar Filtros</button> -->
       <button type="button" class="btn btn-outline-primary spa" (click)="reset()">Actualizar</button>
     </div>
     <div class="col-md-7">
       <div class="form-group has-search">
-        <span class="icon-search form-control-feedback" ></span>
+        <span class="icon-search form-control-feedback"></span>
         <input class="col-md-12 form-control search" (input)="onChangeSearch($event)"
           placeholder="Buscar por código o descripcion" type="text">
       </div>
@@ -33,11 +33,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of stock | stockfilters:null:null:filterSearch ">
-        <td>{{item.IDARTICULO | uppercase}}</td>
-        <td>{{item.IDARTICULOCLIENTE | uppercase}}</td>
-        <td>{{item.DESCRIPCIONLARGA | uppercase}}</td>
-        <td>{{item.DUA | uppercase}}</td>
-        <td>{{item.TOTAL_UNIDADES}}</td>
+        <td class="sku">{{item.IDARTICULO | uppercase}}</td>
+        <td class="sku">{{item.IDARTICULOCLIENTE | uppercase}}</td>
+        <td class="sku">{{item.DESCRIPCIONLARGA | uppercase}}</td>
+        <td class="sku">{{item.DUA | uppercase}}</td>
+        <td class="sku">{{item.TOTAL_UNIDADES}}</td>
       </tr>
     </tbody>
   </table>

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   SERVER: 'http://api.ilgsupplychain.com:5055/',
-  //SERVER: 'http://localhost:5055/',
+  // SERVER: 'http://localhost:5055/',
   API_URL: 'api/',
   // API DATABASE //
   CRC: 'crc/',
@@ -12,10 +12,12 @@ export const environment = {
   // TOKEN //
   TOKEN: 'wAdYgqmpvKu4_H_QKsGJsyvwWrgbPnEvIJZ5rt_I8dLNid9xGlcjKGPAuahQUnDNP-jZPw/',
   // API PTY  //
-  INVENTARIOCONSORCIO: 'inventario?IDCONSORCIO=',
+  INVENTARIOCONSORCIO: 'inventarioFIFO?IDCONSORCIO=',
   INVENTARIOALL: 'ALLinventarios',
   // API CRC //
   TIGOINVETARIO: 'Tigo',
+  INVENTARIOCONSORCIO_FEFO: 'inventarioFEFO?IDCONSORCIO=',
+
   //PAYLESS APIS//
   ORDERADD: 'order/add',
   ORDERBYSTORE: 'order/getByStore?IDStore=',
