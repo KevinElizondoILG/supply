@@ -2,7 +2,6 @@
 <ng-container class="container filters">
   <div class="row">
     <div class="col-md-3 col-md-pull-2 text-center">
-      <button type="button" class="btn btn-outline-danger " (click)="clean()">Borrar Filtros</button>
       <button type="button" class="btn btn-outline-primary spa" (click)="reset()">Actualizar</button>
     </div>
     <div class="col-md-7">
@@ -21,8 +20,8 @@
 </ng-container>
 
 <ng-container matColumnDef="column">
-  <div class="table-responsive">
-    <table class="table  table-sm table-striped  table-bordered ">
+  <div class="table-responsive TableArea">
+    <table class="table  table-sm table-striped  table-bordered">
       <thead class="thead-dark">
         <tr>
           <th style="width: 5%">SUCURSAL </th>
@@ -40,7 +39,6 @@
           <th style="width: 5%"> EN_UNIDADES </th>
           <th style="width: 5%"> FECHACADUCIDAD </th>
           <th style="width: 5%"> DIAS_VIDA_UTIL </th>
-          <th style="width: 5%"> U_M </th>
           <th style="width: 5%"> PESOxTARIMA </th>
           <th style="width: 5%"> FECHA_VALIDACION </th>
           <th style="width: 5%"> CATEGORIA </th>
@@ -48,7 +46,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of stock | stockfilters:null:filterDua:filterSearch  ">
+        <tr *ngFor="let item of stock | fefofilter:null:null:filterSearch ">
           <td> {{item.SUCURSAL}}</td>
           <td>{{item.RECEPCION | uppercase}}</td>
           <td>{{item.WMS_CODE | uppercase}}</td>
@@ -62,11 +60,10 @@
           <td>{{item.REF2 | uppercase}}</td>
           <td>{{item.EN_CAJAS}}</td>
           <td>{{item.EN_UNIDADES }}</td>
-          <td>{{item.FECHACADUCIDAD }}</td>
+          <td>{{item.FECHACADUCIDAD | date:"yyy-MM-dd"}}</td>
           <td>{{item.DIAS_VIDA_UTIL }}</td>
-          <td>{{item.U_M }}</td>
           <td>{{item.PESOxTARIMA }}</td>
-          <td>{{item.FECHA_VALIDACION }}</td>
+          <td>{{item.FECHA_VALIDACION | date:"yyy-MM-dd" }}</td>
           <td>{{item.CATEGORIA | uppercase}}</td>
           <td>{{item.SUBCATEGORIA | uppercase}}</td>
         </tr>

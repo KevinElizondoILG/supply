@@ -37,6 +37,8 @@ import { PaylessKpiComponent } from './components/payless-kpi/payless-kpi.compon
 import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
 import { MovementsComponent } from './components/movements/movements.component';
 import { FefoComponent } from './components/fefo/fefo.component';
+import { FefofilterPipe } from './pipes/fefofilter.pipe';
+import { JobRequestsComponent } from './components/job-requests/job-requests.component';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { FefoComponent } from './components/fefo/fefo.component';
     PaylessKpiComponent,
     StockreportGeneralComponent,
     MovementsComponent,
-    FefoComponent
+    FefoComponent,
+    FefofilterPipe,
+    JobRequestsComponent
   ],
   imports: [
     BrowserModule,

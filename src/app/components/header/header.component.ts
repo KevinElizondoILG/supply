@@ -48,10 +48,11 @@ export class HeaderComponent implements OnInit {
             this.menu = [
               { link: '/coordination', menu: 'Payless' },
               { link: '/payless-kpi', menu: 'KPI Payless' },
-              { link: '/inventory', menu: 'Invetario_Tigo' },
-              { link: '/InvGeneralReport', menu: 'Inventario_General' },
+              { link: '/inventory', menu: 'Inventario Tigo' },
+              { link: '/InvGeneralReport', menu: 'Inventario General' },
               { link: '/movements', menu: 'Movimientos' },
-              { link: '/fefostock', menu: 'FEFO' }
+              { link: '/fefostock', menu: 'FEFO' },
+              { link: '/job-requests', menu: 'Solicitudes' }
             ]
             break;
           case false:

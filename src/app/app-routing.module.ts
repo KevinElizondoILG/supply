@@ -1,3 +1,4 @@
+import { JobRequestsComponent } from './components/job-requests/job-requests.component';
 import { FefoComponent } from './components/fefo/fefo.component';
 import { MovementsComponent } from './components/movements/movements.component';
 import { StockreportGeneralComponent } from './components/stockreport-general/stockreport-general.component';
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'InvGeneralReport', component: StockreportGeneralComponent, canActivate: [AuthGuard] },
   { path: 'payless-kpi', component: PaylessKpiComponent, canActivate: [AuthGuard] },
   { path: 'movements', component: MovementsComponent, canActivate: [AuthGuard] },
-  { path: 'fefostock', component: FefoComponent, canActivate: [AuthGuard] }
+  { path: 'fefostock', component: FefoComponent, canActivate: [AuthGuard] },
+  { path: 'job-requests', component: JobRequestsComponent, canActivate: [AuthGuard] }
   /*  { path: 'coordination', component:  (() => {
     return sessionStorage.getItem('roll') === 'EXT_SUC' ? CoordinationComponent : LoginComponent;
   })(), canActivate: [AuthGuard]}*/

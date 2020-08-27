@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   SERVER: 'http://api.ilgsupplychain.com:5055/',
-  // SERVER: 'http://localhost:5055/',
+  //SERVER: 'http://localhost:5055/',
   API_URL: 'api/',
   // API DATABASE //
   CRC: 'crc/',
@@ -29,6 +29,7 @@ export const environment = {
   ORDEREDITSTORE: 'order/editStore',
   INVENTARIOMASTERBOX: 'masterbox',
   INVETARIOMASTERBOXSUCURSAL: 'masterbox?IDSucursal=',
-  ROUTESSTORE: 'order/routes?Store='
+  ROUTESSTORE: 'order/routes?Store=',
+  APIKEY: '5e9fc246fd12455757cd02aa43f1676c7e64d05959262e39'
 
 };

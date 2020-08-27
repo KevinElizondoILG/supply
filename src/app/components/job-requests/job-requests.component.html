@@ -1,0 +1,172 @@
+<app-header></app-header>
+<div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutAlign.xs="space-around stretch" fxFlex="100"
+  fxFlex.xs="100" fxFlex.sm="100">
+  <form [formGroup]="requestForm" fxLayoutGap="10px" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100" fxFlex.sm="
+    100" fxLayoutAlign.xs="center stretch">
+    <mat-list-item lines="full" class="form-group">
+
+      <h1 class="text-center title">
+        <mat-icon>not_listed_location</mat-icon>
+        ¿Adonde vamos a Entrega?
+      </h1>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput required placeholder="Nombre" type="text" formControlName="name" inputmode="name">
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.name">
+        <mat-error *ngIf="name.hasError(error.type) && (name.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Apellidos</mat-label>
+        <input matInput required placeholder="Primer apellido" type="text" formControlName="firtsLastName"
+          inputmode="firtsLastName">
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.firtsLastName">
+        <mat-error *ngIf="firtsLastName.hasError(error.type) && (firtsLastName.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Celular</mat-label>
+        <input matInput required placeholder="0000-0000" type="text" formControlName="destinataryPhone"
+          inputmode="destinataryPhone">
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryPhone">
+        <mat-error *ngIf="destinataryPhone.hasError(error.type) && (destinataryPhone.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Email (Se utiliza para enviar notificaciones a su cliente.)</mat-label>
+        <input matInput required placeholder="Email de tu cliente para notificaciones" type="email"
+          formControlName="destinataryEmail" inputmode="destinataryEmail">
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryEmail">
+        <mat-error *ngIf="destinataryEmail.hasError(error.type) && (destinataryEmail.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Provincia</mat-label>
+        <mat-select (selectionChange)="stateSelected()" placeholder="Seleccione una provincia"
+          formControlName="destinataryState" inputmode="destinataryState">
+          <mat-option *ngFor="let s of addressState" [value]="s.sid">{{s.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryState">
+        <mat-error *ngIf="destinataryState.hasError(error.type) && (destinataryState.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Cantón</mat-label>
+        <mat-select (selectionChange)="districSelected()" matInput placeholder="Seleccione un Cantón"
+          formControlName="destinataryDistric" inputmode="destinataryDistric">
+          <mat-option *ngFor="let s of allDistrics" [value]="s.did">{{s.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryDistric">
+        <mat-error *ngIf="destinataryDistric.hasError(error.type) && (destinataryDistric.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Distrito</mat-label>
+        <mat-select (selectionChange)="citySelected()" placeholder="Seleccione un Distrito"
+          formControlName="destinataryCity" inputmode="destinataryCity">
+          <mat-option *ngFor="let s of allCities" [value]="s.cid">{{s.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryCity">
+        <mat-error *ngIf="destinataryCity.hasError(error.type) && (destinataryCity.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Código Postal</mat-label>
+        <input matInput [disabled]="true" type="text" placeholder="ej: 11101" [ngModelOptions]="{standalone: true}"
+          [ngModel]="zipCode">
+      </mat-form-field>
+    </mat-list-item>
+    <mat-list-item lines="full" class="form-group">
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>Dirección Exacta puntos de referencia</mat-label>
+        <input matInput required placeholder="Dirección dónde se entregarán tus paquetes" type="text"
+          formControlName="destinataryAddress" inputmode="destinataryAddress">
+      </mat-form-field>
+      <mat-list-item class="error" *ngFor="let error of errorMessages.destinataryAddress">
+        <mat-error *ngIf="destinataryAddress.hasError(error.type) && (destinataryAddress.dirty)">
+          {{error.message}}
+        </mat-error>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item class="text-center full-width ">
+      <p>
+        Indique en el mapa el lugar exacto donde se
+        <b>entregarán los paquetes.</b>
+      </p>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+        <mat-label>(ES OPCIONAL) URL de google maps web o <b>colocá latitud,Longitid del destino</b> </mat-label>
+        <input matInput (change)="getLatLngURL($event)"
+          placeholder="10.000000,84.9999299 -- o -- https://www.google.com/maps/place/9%C2%B058'57.4%22N+84%C2%B001'19.0%22W/@9.9816601,-84.0240473,17z/data=!4m5!3m4!1s0x0:0x0!8m2!3d9.9826111!4d-84.0219444"
+          type="text" inputmode="destinataryAddressURL">
+      </mat-form-field>
+    </mat-list-item>
+    <p style="text-align: center;">verifcar la URL en el mapa o buscar en el mapa</p>
+    <mat-list-item>
+      <mat-list-item fxFlex="100" class="space" fxFlexAlign="center center" fxLayoutAlign="center center">
+        <button mat-button (click)="openModal('Recolección')" class="extended-fab-button" mat-fab color="primary">
+          <mat-icon>location_on</mat-icon><span class="extended-fab-button__text">
+            Ubicar en el Mapa</span>
+        </button>
+      </mat-list-item>
+    </mat-list-item>
+    <mat-list-item role="listitem" class="space">
+      <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start start">
+        <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+          <mat-label>Latitud</mat-label>
+          <input required matInput [disabled]="true" [ngModelOptions]="{standalone: true}" [ngModel]="lat">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end end">
+        <mat-form-field floatLabel="always" appearance="outline" class="full-width">
+          <mat-label>Longitud</mat-label>
+          <input required matInput [disabled]="true" [ngModelOptions]="{standalone: true}" color="prymary"
+            [ngModel]="lng">
+        </mat-form-field>
+      </div>
+    </mat-list-item>
+    <mat-divider class="space">
+    </mat-divider>
+    <mat-list-item fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <mat-list-item fxLayout="column" fxFlex.sm="100" fxFlex.xs="100" fxFlex="50"
+        fxLayoutAlign.xs="space-between  stretch" fxLayoutAlign="center stretch">
+        <!-- (click)="saveProfile()" -->
+        <button mat-button [disabled]="!requestForm.valid" (click)="saveRequest()" class="extended-fab-button" mat-fab
+          color="primary"><span class="extended-fab-button__text">ENVIAR</span></button>
+      </mat-list-item>
+    </mat-list-item>
+  </form>
+</div>

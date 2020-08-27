@@ -45,7 +45,7 @@ export class ApistockService {
     return this._http.get<TigoStock>(this.CRC + this.ENV.TIGOINVETARIO);
   }
   getStockFEFO(): Observable<FEFOStock> {
-    return this._http.post<FEFOStock>(this.CRC + this.ENV.INVENTARIOCONSORCIO_FEFO + localStorage.getItem("consorcio"), {});
+    return this._http.get<FEFOStock>(this.CRC + this.ENV.INVENTARIOCONSORCIO_FEFO + localStorage.getItem("consorcio"));
   }
   getStockReportGeneral(country): Observable<StockReportGeneral> {
     switch (country) {
@@ -53,7 +53,7 @@ export class ApistockService {
         return this._http.get<StockReportGeneral>(this.PTY + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"));
         break;
       case 'CRC':
-        return this._http.post<StockReportGeneral>(this.CRC + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"), {});
+        return this._http.get<StockReportGeneral>(this.CRC + this.ENV.INVENTARIOCONSORCIO + localStorage.getItem("consorcio"));
         break;
     }
   }

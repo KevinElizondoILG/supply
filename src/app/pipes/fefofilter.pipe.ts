@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'stockfilters'
+  name: 'fefofilter'
 })
-export class StockfiltersPipe implements PipeTransform {
+export class FefofilterPipe implements PipeTransform {
 
   transform(values: any, args?: any, args2?: any, args3?: any): any {
     if (args) {
@@ -24,11 +24,11 @@ export class StockfiltersPipe implements PipeTransform {
         return stock.DUA.includes(args2);
       });
     } if (args3) {
-      const desc = values ? values.filter(item => item.DESCRIPCIONLARGA.search(new RegExp(args3, 'i')) > -1
+      const desc = values ? values.filter(item => item.NOMBRELARGO.search(new RegExp(args3, 'i')) > -1
       ) : [];
 
       if (desc.length === 0) {
-        const sku = values ? values.filter(item => item.IDARTICULOCLIENTE.search(new RegExp(args3, 'i')) > -1
+        const sku = values ? values.filter(item => item.CLIENT_CODE.search(new RegExp(args3, 'i')) > -1
         ) : [];
         return sku;
       } else {
