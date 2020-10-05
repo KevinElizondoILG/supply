@@ -20,6 +20,8 @@
 </IfModule>
 #------------
 
+
+
 #------------ REDIRECTION option 2)
 # Use this if your app is not directly on the root of the domain,
 # e.g. http://example_domain.com/directory_path/index.html

@@ -1,0 +1,15 @@
+<div class="dialog-content">
+  <h1>{{data.title}}</h1>
+  <div>
+    <div
+      style="display: flex;flex-direction: column; margin:0.1rem auto;min-width: 200px; max-width: 400px; padding: 0.1rem;">
+      <h2 class="alert-subtitle">{{data.subtitle}}</h2>
+      <p class="alert-message" *ngIf="!verify">{{data.message}}</p>
+      <p class="alert-message" *ngIf="verify"><a href="/verify-email">¿Enviar el link de nuevo?</a></p>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button cdkFocusInitial (click)="cancelar()" class="btn btn-danger">Aceptar</button>
+    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Confirmar</button> -->
+  </div>
+</div>

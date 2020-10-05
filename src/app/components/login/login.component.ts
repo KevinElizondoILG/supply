@@ -16,22 +16,28 @@ export class LoginComponent {
 
   public password: string;
   public username: string;
-public alert: boolean;
-public userinfo: any;
-public data: any;
+  public alert: boolean;
+  public userinfo: any;
+  public data: any;
+  error: string;
 
-  constructor(private  _ls: LoginService) {
-
-   }
-
-
-login() {
-  if (this.username && this.password) {
-    this.data = this._ls.getLogin(this.username, this.password);
-    this.alert = this._ls.alert;
-   // this.data === undefined ? this.alert = true : ( this.data = this._ls.getLogin(this.username, this.password), this.alert = false);
+  constructor(private _ls: LoginService) {
 
   }
-}
+
+
+  async login() {
+
+    if (this.username && this.password) {
+      this.data = await this._ls.getLogin(this.username, this.password)
+      var error = JSON.parse(localStorage.getItem('error'));
+      // console.log(error)
+    }
+    if (error) {
+      this.alert = error.alert;
+      this.error = error.data;
+    }
+
+  }
 
 }

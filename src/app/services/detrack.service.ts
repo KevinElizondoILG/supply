@@ -1,7 +1,14 @@
+
 import { Injectable } from '@angular/core';
 import { Jobs } from '../models/jobs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { firestore } from 'firebase/app';
+import { jobsResponses } from '../models/jobresponse';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +42,7 @@ export class DetrackService {
     const body = {
       "data": {
         "statuses": ["completed", "failed"],
-        "account_number": group
+        // "account_number": group
       }
     }
     return this.http.post('https://app.detrack.com/api/v2/dn/jobs/search', body, {
@@ -44,6 +51,27 @@ export class DetrackService {
       return res
     }).catch(err => { console.error(err) })
   }
+  getByDates(from, to) {
+    const body = {
+      "data": {
+        "dates": {
+          "from": from,
+          "to": to
+        },
+        "page": "2",
+        "limit": "100",
+        // "account_number": group
+      }
+    }
+    return this.http.post('https://app.detrack.com/api/v2/dn/jobs/search', body, {
+      headers: this.headers
+    }).toPromise().then((res: jobsResponses) => {
+      return res
+    }).catch(err => { console.error(err) })
+  }
+
+
+
   createJobs(body) {
     return this.http.post('https://app.detrack.com/api/v2/dn/jobs/bulk', body, {
       headers: this.headers
@@ -53,6 +81,16 @@ export class DetrackService {
   }
 
   async couterJobs() {
+    function makeid(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength)).toUpperCase();
+      }
+      return result;
+    }
+
     const db = this.afDatabase.database.app
     const batch = db.firestore().batch();
     // Read the last TrackNo
@@ -67,7 +105,7 @@ export class DetrackService {
     // Update read count
     storyRef.update({ counter: increment });
     // Create a NEW TrackNo
-    var trackingId = 'CR' + this.padLeft(this.count, 10, '0')
+    var trackingId = 'PTY' + this.padLeft(makeid(8), 8, '0')
     batch.update(storyRef, { trackNumber: trackingId });
     // batch.set(statsRef, { count: increment }, { merge: true });
     batch.commit();
@@ -77,4 +115,6 @@ export class DetrackService {
   padLeft(nr, n, str) {
     return Array(n - String(nr).length + 1).join(str || '0') + nr;
   }
+
+
 }

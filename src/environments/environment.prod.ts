@@ -1,5 +1,14 @@
 export const environment = {
   production: true,
+  firebase: {
+    apiKey: "AIzaSyBkV2_qBmLuLhO3MiFckSdNUf_RgmrSrpA",
+    authDomain: "npp-ilg.firebaseapp.com",
+    databaseURL: "https://npp-ilg.firebaseio.com",
+    projectId: "npp-ilg",
+    storageBucket: "npp-ilg.appspot.com",
+    messagingSenderId: "2625445812",
+    appId: "1:2625445812:web:bf2d39267a9aa47f"
+  },
   SERVER: 'http://api.ilgsupplychain.com:5055/',
   //SERVER: 'http://localhost:5055/',
   API_URL: 'api/',
@@ -14,9 +23,12 @@ export const environment = {
   // API PTY  //
   INVENTARIOCONSORCIO: 'inventarioFIFO?IDCONSORCIO=',
   INVENTARIOALL: 'ALLinventarios',
+  ALLTIENDAS: 'tiendaspty',
+  TIENDAS: 'tiendasusers?email=',
   // API CRC //
   TIGOINVETARIO: 'Tigo',
   INVENTARIOCONSORCIO_FEFO: 'inventarioFEFO?IDCONSORCIO=',
+
 
   //PAYLESS APIS//
   ORDERADD: 'order/add',

@@ -1,7 +1,20 @@
+import { DatafireService } from './../../services/datafire.service';
+import { ApistockService } from 'src/app/services/apistock.service';
+import { DATA, dataB2B, dataJobs, dataT2T, SUCURSALES } from './../../models/jobs';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { DetrackService } from 'src/app/services/detrack.service';
-import { Links, Total_Count } from 'src/app/models/jobs';
+import { Links, jobToSend, Total_Count } from 'src/app/models/jobs';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { DialogAlertsComponent } from 'src/app/modals/dialog-alerts/dialog-alerts.component';
+import { Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { pipe } from 'rxjs';
+import { filter, isEmpty } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+
+const suc = require("../../../assets/data.json");
+
 
 @Component({
   selector: 'app-job-requests',
@@ -17,238 +30,495 @@ export class JobRequestsComponent implements OnInit {
   totalJobs: Total_Count
   lat: any = ''
   lng: any = ''
-  addressState = []
-  allDistrics: any
-  allCities: any
-  zipCode: any
   from: any
-  clientData: any;
   sederData: any;
   track: any;
   user: any;
-  job_price = 2900;
-  marker: any
-  data: any
-  distancetrip: number
+  payment_amount: any;
+  marker: any;
+  data: any;
+  distancetrip: number;
+  sucursales: DATA = suc;
+  userSucursal: any;
+  dataTienda: [SUCURSALES];
+  fechaMin: string;
+  fechaInitial: string;
+  tipoTrabajo: string;
+  b2b: boolean;
+  b2c: boolean;
+  t2t: boolean;
+  dataB2B: dataB2B;
+  dataT2T: dataT2T;
+  dataOrigen: dataJobs;
+  dataDestino: dataJobs;
+  test: any;
 
-  requestForm = this.formBuilder.group({
-    name: ['',
-      [
-        Validators.required,
-        Validators.pattern("^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ]*")
-      ]
-    ],
-    firtsLastName: ['', [
-      Validators.required,
-      Validators.pattern("^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ]*")
+  requestT2TForm = this.formBuilder.group({
+    origen: ['', [
     ]],
-    destinataryState: ['', [
+    destino: ['', [
+    ]],
+    fechaTarea: ['', [
       Validators.required
     ]],
-    destinataryDistric: ['', [
+    bultos: ['', [
       Validators.required
     ]],
-    destinataryCity: ['', [
+    valor: ['', [
       Validators.required
     ]],
-    destinataryAddress: ['', [
+    peso: ['', [
       Validators.required
     ]],
-    destinataryPhone: ['', [
-      Validators.required,
-      Validators.pattern("^[0-9-]*")
-    ]],
-    destinataryEmail: ['', [
-      Validators.required,
-      Validators.email,
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
-    ]],
-    destinataryNote: ['', []],
+    comentarios: ['', []],
+  });
 
-  })
-  get name() {
-    return this.requestForm.get('name');
+
+  requestB2BForm = this.formBuilder.group({
+    fechaTarea: ['', [
+      Validators.required
+    ]],
+    origen: ['', [
+    ]],
+    destinatario: ['', [
+      Validators.required
+    ]],
+    direccion: ['', [
+      Validators.required
+    ]],
+    contacto: ['', [
+      Validators.required
+    ]],
+    telefono: ['', [
+      Validators.required
+    ]],
+    bultos: ['', [
+      Validators.required
+    ]],
+    valor: ['', [
+      Validators.required
+    ]],
+    peso: ['', [
+      Validators.required
+    ]],
+    comentarios: ['', []],
+  });
+  get fechaTarea() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('fechaTarea');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('fechaTarea')
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
-  get firtsLastName() {
-    return this.requestForm.get('firtsLastName');
+  get origen() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('origen');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('origen')
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
-  get destinataryPhone() {
-    return this.requestForm.get('destinataryPhone');
+  get destino() {
+    return this.requestT2TForm.get('destino');
   }
-  get destinataryEmail() {
-    return this.requestForm.get('destinataryEmail');
+  get destinatario() {
+    return this.requestB2BForm.get('destinatario');
   }
-  get destinataryState() {
-    return this.requestForm.get('destinataryState');
+  get contacto() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('contacto')
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
-  get destinataryDistric() {
-    return this.requestForm.get('destinataryDistric');
+  get telefono() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('destino');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('telefono');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
-  get destinataryCity() {
-    return this.requestForm.get('destinataryCity');
+  get bultos() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('bultos');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('bultos');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
+
   }
-  get destinataryAddress() {
-    return this.requestForm.get('destinataryAddress');
+  get valor() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('valor');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('valor');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
-  get destinataryNote() {
-    return this.requestForm.get('destinataryNote');
+  get peso() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('peso');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('peso');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
   }
+  get comentarios() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return this.requestT2TForm.get('comentarios');
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('comentarios');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
+  }
+  get direccion() {
+    switch (this.tipoTrabajo) {
+      case 't2t':
+        return null
+        break;
+      case 'b2b':
+        return this.requestB2BForm.get('direccion');
+        break;
+      case 'b2c':
+        break;
+      default:
+        break;
+    }
+  }
+
 
 
   public errorMessages = {
-    name: [
-      { type: 'required', message: 'El Nombre es un campo requerido.' },
-      { type: 'pattern', message: 'Ingrese un nombre valido' }
+    origen: [
+      { type: 'required', message: 'La tienda de Origen es un campo requerido.' }
     ],
-    firtsLastName: [
-      { type: 'required', message: 'El apellido es un campo requerido.' },
-      { type: 'pattern', message: 'Ingrese un apellido valido' }
+    destino: [
+      { type: 'required', message: 'La tienda de Destino es un campo requerido.' }
     ],
-    destinataryEmail: [
-      { type: 'required', message: 'El correo es un campo requerido.' }
+    destinatario: [
+      { type: 'required', message: 'El destinatario es un campo requerido.' }
     ],
-    destinataryState: [
-      { type: 'required', message: 'La Provincia es un campo requerido.' }
+    contacto: [
+      { type: 'required', message: 'El campo de telefono es un campo requerido.' }
     ],
-    destinataryDistric: [
-      { type: 'required', message: 'La Provincia es un campo requerido.' }
+    telefono: [
+      { type: 'required', message: 'El campo de telefono es un campo requerido.' }
     ],
-    destinataryCity: [
-      { type: 'required', message: 'La Provincia es un campo requerido.' }
+    fechaTarea: [
+      { type: 'required', message: 'La Fecha es un campo requerido.' }
     ],
-    destinataryPhone: [
-      { type: 'required', message: 'La Provincia es un campo requerido.' },
-      { type: 'pattern', message: 'Ingrese un número de telefonico valido' }
+    bultos: [
+      { type: 'required', message: 'La cantidad de Bultos es un campo requerido.' }
     ],
-    destinataryAddress: [
-      { type: 'required', message: 'La dirección es un campo requerido.' }
-    ]
+    valor: [
+      { type: 'required', message: 'El valor de la mercaderia es un campo requerido.' }
+    ],
+    peso: [
+      { type: 'required', message: 'El peso total de la mercaderia es un campo requerido.' }
+    ],
+    direccion: [
+      { type: 'required', message: 'La direccion de entrega de la mercaderia es un campo requerido.' }
+    ],
+    comentarios: []
+
   }
 
-  constructor(private detrack: DetrackService,
-    private formBuilder: FormBuilder,) { }
+  constructor(private detrack: DetrackService, private _api: ApistockService, private dataService: DatafireService, public dialog: MatDialog, private router: Router,
+    private formBuilder: FormBuilder) {
+    this.fechaMin = this.getDate(0)
+    this.fechaInitial = this.getDate(1)
+    this._api.getAllTiendas().subscribe((res: [SUCURSALES]) => {
+      this.dataTienda = res
+    });
+
+
+  }
+
 
   ngOnInit() {
+    this._api.getTiendaData(localStorage.getItem('currentUser')).subscribe((res: [SUCURSALES]) => {
+      this.userSucursal = res[0].TIENDA;
+    });
+
   }
+  toBack() {
+    this.tipoTrabajo = null
+  }
+  click(tipo) {
+    switch (tipo) {
+      case 't2t':
+        this.tipoTrabajo = 't2t'
+        this.t2t = true
+        this.b2b = false
+        this.b2c = false
+        break;
+      case 'b2b':
+        this.tipoTrabajo = 'b2b'
+        this.t2t = false
+        this.b2b = true
+        this.b2c = false
+        break;
+      case 'b2c':
+        this.tipoTrabajo = 'b2c'
+        this.t2t = false
+        this.b2b = false
+        this.b2c = true
+        break;
+      default:
+        break;
+    }
+  }
+
+  getDate(arg) {
+    if (arg == 1) {
+      let date = new Date()
+      let day = date.getDate() + 1
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      const getDate = year + "-" + month + "-" + day
+      return getDate;
+    } else {
+      let date = new Date()
+      let day = date.getDate()
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      const getDate = year + "-" + month + "-" + day
+      return getDate;
+    }
+  }
+  getTiendaByName(name) {
+
+    var data = this.dataTienda.filter(x => name.indexOf(x.NOMBRE) > -1).filter((elem1, pos, arr) => arr.findIndex((elem2) => elem2.NOMBRE === elem1.NOMBRE) === pos);
+
+    return data[0];
+
+  }
+
   async saveRequest() {
+    this.dataB2B = this.requestB2BForm.value;
+    this.dataT2T = this.requestT2TForm.value;
+
+
+    if (this.dataB2B.origen == '') {
+      var origen = this.getTiendaByName(this.dataT2T.origen);
+      var destino = this.getTiendaByName(this.dataT2T.destino);
+      this.dataOrigen = {
+        fechaTarea: this.dataT2T.fechaTarea,
+        nombre: this.dataT2T.origen,
+        direccion: origen.DIRECCION,
+        email: origen.EMAILDESTINATARIOS,
+        contacto: origen.CONTACTO,
+        telefono: origen.TELEFONO,
+        bultos: this.dataT2T.bultos,
+        valor: this.dataT2T.valor,
+        peso: this.dataT2T.peso,
+        comentarios: this.dataT2T.comentarios
+      }
+      this.dataDestino = {
+        fechaTarea: this.dataT2T.fechaTarea,
+        nombre: this.dataT2T.destino,
+        direccion: destino.DIRECCION,
+        email: destino.EMAILDESTINATARIOS,
+        contacto: destino.CONTACTO,
+        telefono: destino.TELEFONO,
+        bultos: this.dataT2T.bultos,
+        valor: this.dataT2T.valor,
+        peso: this.dataT2T.peso,
+        comentarios: this.dataT2T.comentarios
+      }
+
+    } else {
+      var origen = this.getTiendaByName(this.dataB2B.origen);
+      this.dataOrigen = {
+        fechaTarea: this.dataB2B.fechaTarea,
+        nombre: this.dataB2B.origen,
+        email: origen.EMAILDESTINATARIOS,
+        direccion: origen.DIRECCION,
+        contacto: origen.CONTACTO,
+        telefono: origen.TELEFONO,
+        bultos: this.dataB2B.bultos,
+        valor: this.dataB2B.valor,
+        peso: this.dataB2B.peso,
+        comentarios: this.dataB2B.comentarios
+      }
+      this.dataDestino = {
+        fechaTarea: this.dataB2B.fechaTarea,
+        nombre: this.dataB2B.destinatario,
+        email: origen.EMAILDESTINATARIOS,
+        direccion: this.dataB2B.direccion,
+        contacto: this.dataB2B.contacto,
+        telefono: this.dataB2B.telefono,
+        bultos: this.dataB2B.bultos,
+        valor: this.dataB2B.valor,
+        peso: this.dataB2B.peso,
+        comentarios: this.dataB2B.comentarios
+      }
+
+    }
+
     this.detrack.couterJobs().then(res => {
       this.track = res
-      console.log(this.track)
-
-      this.createJobDelivery(this.track)
-      this.createJobCollection(this.track)
-      this.presentAlert('Tareas Creadas', 'Tareas de Recolecta y Entrega', 'Su numero de tracking es: ' +
-        this.track + ' para más información verifique la opción de tareas en tránsito.', '/active')
+      // console.log(this.track)
+      this.createJobCollection(this.track, this.dataOrigen, this.dataDestino)
+      this.createJobDelivery(this.track, this.dataOrigen, this.dataDestino)
+      this._api.presentAlert('Tarea Creada', 'Tareas de Recolecta y Entrega', 'Su numero de tracking es: ' +
+        this.track + ' para más información verifique la opción de tareas en tránsito.', '/job-requests')
     })
   }
-  async createJobDelivery(trackNo) {
+  async createJobCollection(trackNo, origen: dataJobs, destino: dataJobs) {
+    // console.log(this.requestT2TForm.value)
+    let date = new Date()
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    this.jobCollection = {
+      'data': [{
+        do_number: trackNo,
+        tracking_number: trackNo,
+        order_number: trackNo,
+        type: 'Collection',
+        open_to_marketplace: true,
+        weight: origen.peso,
+        pieces: origen.bultos,
+        payment_amount: origen.valor,
+        date: year + '-' + month + '-' + day,
+        company_name: origen.nombre,
+        sender_phone_number: origen.telefono,
+        group_name: origen.nombre,
+        account_number: '',
+        account_no: origen.nombre,
+        customer: origen.contacto,
+        instructions: origen.comentarios,
+        deliver_to_collect_from: origen.nombre + ' ' + destino.nombre,
+        notify_email: origen.email + ';' + destino.email,
+        phone_number: origen.telefono,
+        country: 'Panamá',
+        state: '',
+        city: '',
+        address_1: origen.direccion,
+        address_2: '',
+        address_lat: '',
+        address_lng: ''
+      } as jobToSend]
+    }
+    // console.log(this.jobCollection)
+    this.dataService.saveJob(this.jobCollection)
+    // this.detrack.createJobs(this.jobCollection).then((res) => {
+    //   // this.dataService.saveJob(res)
+    //   console.log(res)
+    // }).catch(err => {
+    //   console.error(err)
+    // })
+
+  }
+  async createJobDelivery(trackNo, origen: dataJobs, destino: dataJobs) {
 
     let date = new Date()
     let day = date.getDate()
     let month = date.getMonth() + 1
     let year = date.getFullYear()
-    await this.places.getFullAdress(this.requestForm.value.destinataryDistric, this.requestForm.value.destinataryCity).then((res: any) => {
-      var userId = JSON.parse(localStorage.getItem('user'));
-      this.dataService.getUserProfile(userId.uid).then(user => {
-        this.dataService.getCompany(user.data().oid).then(oid => {
-          this.clientData = Object.assign({}, user.data(), oid.data(), { DO: trackNo })
-          this.jobDelivery = {
-            'data': [{
-              do_number: trackNo,
-              tracking_number: trackNo,
-              order_number: trackNo,
-              type: 'Delivery',
-              open_to_marketplace: true,
-              weight: '',
-              pieces: '',
-              job_price: this.job_price,
-              date: year + '-' + month + '-' + day,
-              company_name: this.clientData.companyName,
-              sender_phone_number: this.clientData.celPhone,
-              group_name: this.clientData.companyName,
-              account_number: this.clientData.oid,
-              account_no: this.clientData.oid,
-              customer: this.requestForm.value.name,
-              instructions: this.requestForm.value.destinataryNote,
-              deliver_to_collect_from: this.requestForm.value.name,
-              notify_email: this.clientData.companyEmail + ';' + this.requestForm.value.destinataryEmail,
-              phone_number: this.requestForm.value.destinataryPhone,
-              last_name: this.requestForm.value.firtsLastName,
-              country: 'Costa Rica',
-              state: res.state,
-              city: res.district,
-              address_1: this.requestForm.value.destinataryAddress,
-              address_2: res.name,
-              address_lat: this.lat,
-              address_lng: this.lng
-            } as jobToSend]
-          }
-          this.detrack.createJobs(this.jobDelivery).then((res) => {
-            this.dataService.saveJob(res)
-            // console.log(res)
-          }).catch(err => {
-            console.error(err)
-          })
-        })
-      })
-    })
+    let res = {}
+    this.jobDelivery = {
+      'data': [{
+        do_number: trackNo,
+        tracking_number: trackNo,
+        order_number: trackNo,
+        type: 'Delivery',
+        open_to_marketplace: true,
+        weight: destino.peso,
+        pieces: destino.bultos,
+        payment_amount: destino.valor,
+        date: year + '-' + month + '-' + day,
+        company_name: destino.nombre,
+        sender_phone_number: destino.telefono,
+        group_name: destino.nombre,
+        account_number: '',
+        account_no: destino.nombre,
+        customer: destino.contacto,
+        instructions: destino.comentarios,
+        deliver_to_collect_from: origen.nombre + ' ' + destino.nombre,
+        notify_email: origen.email + ';' + destino.email,
+        phone_number: destino.telefono,
+        country: 'Panamá',
+        state: '',
+        city: '',
+        address_1: destino.direccion,
+        address_2: '',
+        address_lat: '',
+        address_lng: ''
+      } as jobToSend]
+    }
+    this.dataService.saveJob(this.jobDelivery)
+    // console.log(this.jobDelivery)
+    // this.detrack.createJobs(this.jobDelivery).then((res) => {
+    //   // this.dataService.saveJob(res)
+    //   console.log(res)
+    // }).catch(err => {
+    //   console.error(err)
+    // })
+
   }
-  async createJobCollection(trackNo) {
-    // console.log(this.requestForm.value)
-    let date = new Date()
-    let day = date.getDate()
-    let month = date.getMonth() + 1
-    let year = date.getFullYear()
-    await this.places.getFullAdress(this.requestForm.value.destinataryDistric, this.requestForm.value.destinataryCity).then((res: any) => {
-      var userId = JSON.parse(localStorage.getItem('user'));
-      this.dataService.getUserProfile(userId.uid).then(user => {
-        this.dataService.getCompany(user.data().oid).then(oid => {
-          this.clientData = Object.assign({}, user.data(), oid.data(), { DO: trackNo })
-          this.jobCollection = {
-            'data': [{
-              do_number: trackNo,
-              tracking_number: trackNo,
-              order_number: trackNo,
-              type: 'Collection',
-              open_to_marketplace: true,
-              weight: '',
-              pieces: '',
-              job_price: this.job_price,
-              date: year + '-' + month + '-' + day,
-              company_name: this.clientData.companyName,
-              sender_phone_number: this.clientData.celPhone,
-              group_name: this.clientData.companyName,
-              account_number: this.clientData.oid,
-              account_no: this.clientData.oid,
-              customer: this.clientData.companyName,
-              instructions: this.requestForm.value.destinataryNote,
-              deliver_to_collect_from: this.clientData.name + ' ' + this.clientData.firtsLastName,
-              notify_email: this.clientData.companyEmail + ';' + this.requestForm.value.destinataryEmail,
-              phone_number: this.clientData.companyPhone,
-              last_name: this.clientData.firtsLastName,
-              country: 'Costa Rica',
-              state: this.clientData.companyState,
-              city: this.clientData.companyDistrict,
-              address_1: this.clientData.companyAddress,
-              address_2: this.clientData.companyName,
-              address_lat: this.clientData.address_lat,
-              address_lng: this.clientData.address_lng
-            } as jobToSend]
-          }
-          this.detrack.createJobs(this.jobCollection).then((res) => {
-            this.dataService.saveJob(res)
-            // console.log(res)
-          }).catch(err => {
-            console.error(err)
-          })
-        })
-      })
-    })
-  }
+
 
   u() {
     this.detrack.couterJobs().then(res => this.track = res)
-    console.log(this.track)
+    //console.log(this.track)
   }
 
+  getTienda(email) {
+    this._api.getTiendaData(email).subscribe((res: [SUCURSALES]) => {
+    })
+
+  }
 }

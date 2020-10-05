@@ -3,6 +3,21 @@ export interface Jobs {
   links: Links;
   total_count: Total_Count;
 }
+export interface DATA {
+  SUCURSALES?: SUCURSALES;
+}
+export interface SUCURSALES {
+  NOMBRE?: string;
+  CODIGO: string;
+  DIRECCION: string;
+  CONTACTO: string;
+  TELEFONO: string;
+  CARGO: string;
+  EMAIL: string;
+  EMAILDESTINATARIOS: string;
+  TIENDA?: string;
+}
+
 export interface Total_Count {
   total_count: number;
 }
@@ -24,6 +39,7 @@ export interface jobToSend {
   address_2?: string; // Address 2.
   // address_3?: string; // Address 3.
   postal_code?: string; // Postal code.
+  payment_amount?: string;
   city?: string; // City.
   state?: string; // State.
   country?: string; // Country.
@@ -157,6 +173,7 @@ export interface LatLng {
   lat: number;
   lng: number
 }
+
 export interface jobResponse {
   account_number: string;
   actual_crates: string;
@@ -319,3 +336,39 @@ export interface jobResponse {
   weight: string;
   zone: string;
 }
+export interface dataB2B {
+  fechaTarea: string;
+  origen: string;
+  destinatario: string;
+  direccion: string;
+  contacto: string;
+  telefono: string;
+  bultos: number;
+  valor: string;
+  peso: number;
+  comentarios: string;
+}
+
+export interface dataT2T {
+  fechaTarea: string;
+  origen: string;
+  destino: string;
+  bultos: number;
+  valor: string;
+  peso: number;
+  comentarios: string;
+}
+
+export interface dataJobs {
+  fechaTarea: string;
+  nombre: string;
+  direccion: string;
+  email: string;
+  contacto: string;
+  telefono: string;
+  bultos: number;
+  valor: string;
+  peso: number;
+  comentarios: string;
+}
+

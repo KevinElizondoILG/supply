@@ -1,9 +1,10 @@
+
 // AuthGuard
 import { AuthGuard } from './auth.guard';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -39,6 +40,20 @@ import { MovementsComponent } from './components/movements/movements.component';
 import { FefoComponent } from './components/fefo/fefo.component';
 import { FefofilterPipe } from './pipes/fefofilter.pipe';
 import { JobRequestsComponent } from './components/job-requests/job-requests.component';
+import { MaterialImporterModule } from './core/material-importer/material-importer.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+// AngularFireDatabase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { environment } from 'src/environments/environment.prod';
+import { DialogAlertsComponent } from './modals/dialog-alerts/dialog-alerts.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
+import { JobsHistoryComponent } from './components/jobs-history/jobs-history.component';
+import { KpiMillicomComponent } from './components/kpi-millicom/kpi-millicom.component';
 
 
 @NgModule({
@@ -65,23 +80,36 @@ import { JobRequestsComponent } from './components/job-requests/job-requests.com
     MovementsComponent,
     FefoComponent,
     FefofilterPipe,
-    JobRequestsComponent
+    JobRequestsComponent,
+    DialogAlertsComponent,
+    TrackingComponent,
+    JobsHistoryComponent,
+    KpiMillicomComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MaterialImporterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NoopAnimationsModule
   ],
   providers: [
     AuthGuard,
     LoginService,
     EncrDecrServiceService,
     ApistockService,
-    ExcelService
+    ExcelService,
+    AngularFireDatabase,
+    AngularFirestore
   ],
+  entryComponents: [DialogAlertsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

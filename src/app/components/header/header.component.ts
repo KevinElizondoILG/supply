@@ -52,7 +52,8 @@ export class HeaderComponent implements OnInit {
               { link: '/InvGeneralReport', menu: 'Inventario General' },
               { link: '/movements', menu: 'Movimientos' },
               { link: '/fefostock', menu: 'FEFO' },
-              { link: '/job-requests', menu: 'Solicitudes' }
+              { link: '/job-requests', menu: 'Solicitudes' },
+              { link: '/kpi-millicom', menu: 'KPI Millicom' }
             ]
             break;
           case false:
@@ -60,10 +61,10 @@ export class HeaderComponent implements OnInit {
               case '40':
                 switch (this.roll) {
                   case 'EXT_SUC':
-                    this.menu = [{ link: '/inventory', menu: 'Inventario' }]
+                    this.menu = [{ link: '/inventory', menu: 'Inventario' }, { link: '/kpi-millicom', menu: 'KPI MOVIL' }]
                     break;
                   case 'EXT_CON':
-                    this.menu = [{ link: '/inventory', menu: 'Inventario(Suc/Sub)' }, { link: '/InvGeneralReport', menu: 'Inventario General' }]
+                    this.menu = [{ link: '/inventory', menu: 'Inventario(Suc/Sub)' }, { link: '/InvGeneralReport', menu: 'Inventario General' }, { link: '/kpi-millicom', menu: 'KPI MOVIL' }]
                     break;
                 }
                 break;
@@ -77,7 +78,7 @@ export class HeaderComponent implements OnInit {
                     break;
                   case 'EXT_CON':
                     this.menu = [
-                      { link: '/coordination', menu: 'Coordination' },
+                      { link: '/coordination', menu: 'Coordinación' },
                       { link: '/payless-kpi', menu: 'KPIs' }
                     ]
                     break;
@@ -97,10 +98,33 @@ export class HeaderComponent implements OnInit {
         }
         break;
       case ('PTY'):
-        this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }]
-        break;
-    }
+        switch (consorcio) {
+          case '1':
+            switch (this.roll) {
+              case 'EXT_SUC':
+                this.menu = [{ link: '/job-requests', menu: 'Entregas' }, { link: '/tracking', menu: 'Tracking' }]
+                break;
+              case 'EXT_CON':
+                this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }, { link: '/kpi-millicom', menu: 'KPI Millicom' }]
+                break;
+            }
+            break;
+          case '40':
+            switch (this.roll) {
+              case 'EXT_SUC':
+                this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }]
+                break;
+              case 'EXT_CON':
+                this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }, { link: '/kpi-millicom', menu: 'KPI Millicom' }]
+                break;
+            }
+            break;
+          default:
+            this.menu = [{ link: '/InvGeneralReport', menu: 'Inventario' }]
+            break;
+        }
 
+    }
   }
 
   logOut() {

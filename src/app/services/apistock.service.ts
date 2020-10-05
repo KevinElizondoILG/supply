@@ -1,3 +1,4 @@
+import { DATA, SUCURSALES } from './../models/jobs';
 import { Router } from '@angular/router';
 import { Stock, TigoStock, StockReportGeneral, FEFOStock } from './../models/stock/stock';
 
@@ -6,6 +7,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'src/environments/environment.prod';
+import { DialogAlertsComponent } from '../modals/dialog-alerts/dialog-alerts.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -30,8 +33,22 @@ export class ApistockService {
   private x: string;
 
 
-  constructor(private _http: HttpClient, private _route: Router) {
+  constructor(private _http: HttpClient, private _route: Router, public dialog: MatDialog,) {
 
+  }
+
+  presentAlert(title, subtitle, message, route?) {
+    this.dialog.open(DialogAlertsComponent, {
+      data: {
+        title: title,
+        subtitle: subtitle,
+        message: message,
+      },
+      panelClass: 'custom-modalbox'
+    })
+    this.dialog._afterAllClosed.subscribe(res => {
+      this._route.navigate([route])
+    })
   }
 
   getStoreStock(b?): Observable<Stock> {
@@ -112,4 +129,13 @@ export class ApistockService {
     });
   }
 
+  getTiendaData(email) {
+    return this._http.get(this.PTY + this.ENV.TIENDAS + email);
+  }
+  getAllTiendas() {
+    return this._http.get(this.PTY + this.ENV.ALLTIENDAS);
+  }
+  getTiendaByName(name) {
+
+  }
 }

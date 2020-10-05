@@ -1,0 +1,88 @@
+<app-header></app-header>
+<div class="container filters">
+  <div class="row" id="collapseExample" [ngbCollapse]="isCollapsed">
+    <div class="col-md-12">
+      <form class=" form-inline">
+        <div class="form-group ">
+          <span class="spaCiO">Desde: </span>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-MM-dd" name="from" [(ngModel)]="datefrom"
+              (Onchange)="(datefrom = datefrom )" type="date" ngbDatepicker #from="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="from.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="spaCiO">Hasta: </span>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-MM-dd" name="to" [(ngModel)]="dateto"
+              (Onchange)="(dateto = dateto)" type="date" ngbDatepicker #to="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="to.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-outline-primary filtar " (click)="getJobsByDates()">
+            Buscar
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+    <!--  To: {{ dateto}} - ----{{ dateto.year }}-{{ dateto.month }}-{{ dateto.day }}
+        <p> From: {{ datefrom.year }}-{{ datefrom.month }}-{{ datefrom.day }} <br> To: {{ dateto.year }}-{{ dateto.month }}-{{ dateto.day }}
+    </p>-->
+  </div>
+</div>
+<div *ngIf="!data" class="alert-text">
+  Seleccione un rango de fechas.
+</div>
+<div class="card_container">
+  <mat-card *ngFor="let item of data; let i = index">
+    <mat-card-content>
+      <span matBadge={{i+1}} matBadgeOverlap="true" matBadgePosition="before" class="badge" matBadgeColor="accent">
+      </span>
+      <div class="header_container">
+        <h2>
+          <span *ngIf="item.type==='Delivery'">Entrega</span> <span *ngIf="item.type !=='Delivery'">Recolecta</span>
+        </h2>
+        <p class="fecha"> Fecha: {{item.start_date}}</p>
+        <p class="tracking"> Tracking: {{item.tracking_number}}</p>
+      </div>
+      <div class="text_container">
+        <p> Origen/Destino: {{item.company_name}}</p>
+        <p> Direccion: <span class="font10italic"> {{item.address}}</span></p>
+        <p> Estado:<span class="font10italic"> {{item.status}}</span></p>
+        <p> Tracking Link: <span class="font10italic"><a href={{item.tracking_link}}> {{item.tracking_link}}</a> </span>
+        </p>
+      </div>
+      <div class="images_container">
+        <div *ngIf="item.photo_1_file_url">
+          <img src={{item.photo_1_file_url}} alt="">
+        </div>
+        <div *ngIf="item.photo_2_file_url">
+          <img src={{item.photo_2_file_url}} alt="">
+        </div>
+        <div *ngIf="item.photo_3_file_url">
+          <img src={{item.photo_3_file_url}} alt="">
+        </div>
+        <div *ngIf="item.photo_4_file_url">
+          <img src={{item.photo_4_file_url}} alt="">
+        </div>
+        <div *ngIf="item.photo_5_file_url">
+          <img src={{item.photo_5_file_url}} alt="">
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="container">
+  <div class="text-center">
+    <a href={{links}}>{{links}} </a>
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="data" [rotate]="true"
+      [boundaryLinks]="true"></ngb-pagination>
+  </div>
+</div>

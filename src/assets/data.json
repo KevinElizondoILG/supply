@@ -1,0 +1,247 @@
+﻿{
+  "SUCURSALES": [
+    {
+      "TIENDA": "Aguadulce ",
+      "CODIGO": "SER30134",
+      "DIRECCION": "ave Rodolfo Chiari lado Almacen Raymond",
+      "CONTACTO": "Marvin Salinas ",
+      "TELEFONO": "65796833",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "marvinemmanuel.salinaspimentel.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Albrook Cine ",
+      "CODIGO": "SER30135",
+      "DIRECCION": "Albrook mall local 91a pasillo jirafa",
+      "CONTACTO": "Marishel Salazar",
+      "TELEFONO": "68334988",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "marishel.salazar@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Boquete ",
+      "CODIGO": "SER30136",
+      "DIRECCION": "Calle 2da edificio Dona Mirtha",
+      "CONTACTO": "Jessica Espinoza",
+      "TELEFONO": "69310208",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "jessica.espinozap.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Bugaba",
+      "CODIGO": "SER30137",
+      "DIRECCION": "frente al Parque Manuel A Guerrero",
+      "CONTACTO": "José Espinosa",
+      "TELEFONO": "64902679",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "Jose.Espinosa.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Changuinola ",
+      "CODIGO": "SER30138",
+      "DIRECCION": "Calle princ Finca 11 Plaza Changuinola",
+      "CONTACTO": "Eymi Sánchez ",
+      "TELEFONO": "66183984",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "eimy.sanchez@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Chitré ",
+      "CODIGO": "SER30139",
+      "DIRECCION": "Plaza Dona Rosa cerca Centro Radiodiag",
+      "CONTACTO": "Irasema Villarreal",
+      "TELEFONO": "69304939",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "irasema.villarreal@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Chorrera ",
+      "CODIGO": "SER30140",
+      "DIRECCION": "calle El Puerto entre El Rey y bomberos",
+      "CONTACTO": "Manuel Rodriguez",
+      "TELEFONO": "64553139",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": " Manueld.rodriguez@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Colón calle 12",
+      "CODIGO": "SER30141",
+      "DIRECCION": "calle 10 y 11 avCentral costado Ca Ahorr",
+      "CONTACTO": "Itzury Archibold",
+      "TELEFONO": "60743256",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "Itzury.archibold@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Cooperativa de Profesionales ",
+      "CODIGO": "SER30142",
+      "DIRECCION": "Ca Jorge Zarak entre VEsp y Av FCordoba",
+      "CONTACTO": "Yanluis Saldaña",
+      "TELEFONO": "66111525",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "yanluis.saldana.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Coronado ",
+      "CODIGO": "SER30143",
+      "DIRECCION": "CC Corowalk PB local no 602",
+      "CONTACTO": "Erika Reina ",
+      "TELEFONO": "64227210",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "erika.reina.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Costa del Este ",
+      "CODIGO": "SER30144",
+      "DIRECCION": "CdE Edif Business Park Este PB",
+      "CONTACTO": "Xavier Gooding ",
+      "TELEFONO": "64648090",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "xavier.gooding@tigo.com.pa"
+    },
+    {
+      "TIENDA": "David Galería",
+      "CODIGO": "SER30145",
+      "DIRECCION": "Plaza Galeria Central al lado de la gob",
+      "CONTACTO": "Juan Halphen ",
+      "TELEFONO": "64855372",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "juan.halphen.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "David Parque ",
+      "CODIGO": "SER30146",
+      "DIRECCION": "ca 3Este y ca BNort frent Pq M de C Saav",
+      "CONTACTO": "Karol Saldaña",
+      "TELEFONO": "63786219",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "karol.saldana.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "El Dorado  ",
+      "CODIGO": "SER30147",
+      "DIRECCION": "El Dorado Plaza Principal antig SuperDep",
+      "CONTACTO": "Jorge Lopez",
+      "TELEFONO": "66177944",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "jorge.lopezde@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Isla Colón",
+      "CODIGO": "SER30148",
+      "DIRECCION": "calle 3ra princ a lado rest Chitre",
+      "CONTACTO": "Roberto Stewart",
+      "TELEFONO": "65116247",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "roberto.stewart.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Kiosco Albrook Terminal",
+      "CODIGO": "SER30149",
+      "DIRECCION": "Term Transp Albrook Sur frent Caj Ahorro",
+      "CONTACTO": "Eric Rodriguez ",
+      "TELEFONO": "63887811",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "eric.rodriguez@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Kiosco Santiago Terminal ",
+      "CODIGO": "SER30150",
+      "DIRECCION": "Terminal transp Sant frent SuperCarnes",
+      "CONTACTO": "Rosa Sanchez",
+      "TELEFONO": "68488825",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "rosae.sanchez.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Kioscos Albrook Costo",
+      "CODIGO": "SER30151",
+      "DIRECCION": "Frente a AlmEl Costo antes del Carrusel",
+      "CONTACTO": "Eric Rodriguez ",
+      "TELEFONO": "63887811",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "eric.rodriguez@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Kioscos Los Andes ",
+      "CODIGO": "SER30152",
+      "DIRECCION": "CC Los Andes princl por Global Bank",
+      "CONTACTO": "Nestor Hidalgo",
+      "TELEFONO": "62316458",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "nestor.hidalgo.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "La Doña ",
+      "CODIGO": "SER30153",
+      "DIRECCION": "CC La Dona 24 dic a lado de Banviv",
+      "CONTACTO": "Yaira Camarena",
+      "TELEFONO": "64009815",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "Yaira.camarena@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Las Tablas ",
+      "CODIGO": "SER30154",
+      "DIRECCION": "av B Porras frente a Piamonte diag CAO",
+      "CONTACTO": "Lia Moreno",
+      "TELEFONO": "64701133",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "lia.moreno@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Metetí",
+      "CODIGO": "SER30155",
+      "DIRECCION": "Panameric CC Liviana a lado antig Chiman",
+      "CONTACTO": "Leticia Tello",
+      "TELEFONO": "68346413",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "leticia.tellovega.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Metromall",
+      "CODIGO": "SER30156",
+      "DIRECCION": "CC Metromall ultimo piso pasillo Triangu",
+      "CONTACTO": "Marielis Aguilar",
+      "TELEFONO": "66090986",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "marielis.aguilar@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Multiplaza ",
+      "CODIGO": "SER30157",
+      "DIRECCION": "Multiplaza Plaza del Sol 2do piso",
+      "CONTACTO": "Gustavo Navarro  ",
+      "TELEFONO": "66129292",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": "Gustavo.navarro@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Penonomé",
+      "CODIGO": "SER30158",
+      "DIRECCION": "AvCentral call Estudiant frent OneDollar",
+      "CONTACTO": "Guillermo Herrera",
+      "TELEFONO": "64554400",
+      "CARGO": "Supervisor de Centros de Experiencia ",
+      "EMAIL": " guillermo.herrerat@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Santiago Ave. Central",
+      "CODIGO": "SER30159",
+      "DIRECCION": "Av principal al lado de Banvivienda",
+      "CONTACTO": "Rosa Sanchez",
+      "TELEFONO": "68488825",
+      "CARGO": "Team Leader Centros de Experiencia ",
+      "EMAIL": "rosae.sanchez.mail@tigo.com.pa"
+    },
+    {
+      "TIENDA": "Bodega Pospago ",
+      "CODIGO": "SER30163",
+      "DIRECCION": "Llano Bonito Despacho de Cable Onda",
+      "CONTACTO": "Gerardo David",
+      "TELEFONO": "6619-3162",
+      "CARGO": "Logistic Partner",
+      "EMAIL": "gerardo.david@tigo.com.pa"
+    }
+  ]
+}

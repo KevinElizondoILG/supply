@@ -1,18 +1,21 @@
-.login div{
-background-color: #f5f5f580;
-opacity: 0.98;
-border-radius: 25px;
-padding: 5%;
-position: relative;
-top: 1rem;
-border: rgba(78, 78, 78, 0.466) solid 0.35px ;
+.login > div {
+  background-color: #f5f5f580;
+  opacity: 0.98;
+  border-radius: 25px;
+  padding: 5%;
+  position: relative;
+  top: 1rem;
+  border: rgba(78, 78, 78, 0.466) solid 0.35px;
 }
 .login div form {
   opacity: 1 !important;
 }
-.login img{
- width: 80%;
+.login img {
+  width: 80%;
   padding: 5px;
   display: block;
+  text-align: center;
+}
+.alert {
   text-align: center;
 }
