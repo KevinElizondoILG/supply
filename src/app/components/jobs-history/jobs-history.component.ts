@@ -24,37 +24,13 @@ export class JobsHistoryComponent implements OnInit {
   public isCollapsed = false;
   public links: any;
 
-  constructor(private http: HttpClient, private detrack: DetrackService) { }
+  constructor(private http: HttpClient, private detrack: DetrackService, private _datafirebase: DatafireService) { }
 
   ngOnInit() {
 
-    this.links = 'https://app.detrack.com/api/v2/dn/jobs?page=2&limit=100'
+    console.log(this.detrack.couterJobs())
   }
 
 
-  getJobsByDates() {
-    var dfrom = this.datefrom.year + '-' + this.datefrom.month + '-' + this.datefrom.day;
-    var dto = this.dateto.year + '-' + this.dateto.month + '-' + this.dateto.day
-    var a = performance.now();
-    this.detrack.getByDates(dfrom, dto).then(
-      (res: jobsResponses) => {
-        console.log(res);
-        // res.data.map(job => {
-        //   console.log(job)
-        // })
-        var b = performance.now();
-        b - a;
-        console.log(a + '   -   ' + b)
-        this.data = res.data
-        // this.links = res.links
-        // console.log(this.links)
-        // res.data.forEach((job: DataEntity) => {
-        //   console.log(job)
-        //   this.data = job
-        // })
-      }
-    )
-  }
-  EditOrder(numorder) { }
 
 }

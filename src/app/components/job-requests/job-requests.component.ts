@@ -8,10 +8,7 @@ import { Links, jobToSend, Total_Count } from 'src/app/models/jobs';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAlertsComponent } from 'src/app/modals/dialog-alerts/dialog-alerts.component';
 import { Router } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { pipe } from 'rxjs';
-import { filter, isEmpty } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+
 
 const suc = require("../../../assets/data.json");
 
@@ -322,7 +319,7 @@ export class JobRequestsComponent implements OnInit {
   getDate(arg) {
     if (arg == 1) {
       let date = new Date()
-      let day = date.getDate() + 1
+      let day = date.getDate()
       let month = date.getMonth() + 1
       let year = date.getFullYear()
       const getDate = year + "-" + month + "-" + day
@@ -454,12 +451,12 @@ export class JobRequestsComponent implements OnInit {
     }
     // console.log(this.jobCollection)
     this.dataService.saveJob(this.jobCollection)
-    // this.detrack.createJobs(this.jobCollection).then((res) => {
-    //   // this.dataService.saveJob(res)
-    //   console.log(res)
-    // }).catch(err => {
-    //   console.error(err)
-    // })
+    this.detrack.createJobs(this.jobCollection).then((res) => {
+      this.dataService.saveJob(res)
+      // console.log(res)
+    }).catch(err => {
+      console.error(err)
+    })
 
   }
   async createJobDelivery(trackNo, origen: dataJobs, destino: dataJobs) {
@@ -501,12 +498,12 @@ export class JobRequestsComponent implements OnInit {
     }
     this.dataService.saveJob(this.jobDelivery)
     // console.log(this.jobDelivery)
-    // this.detrack.createJobs(this.jobDelivery).then((res) => {
-    //   // this.dataService.saveJob(res)
-    //   console.log(res)
-    // }).catch(err => {
-    //   console.error(err)
-    // })
+    this.detrack.createJobs(this.jobDelivery).then((res) => {
+      this.dataService.saveJob(res)
+      // console.log(res)
+    }).catch(err => {
+      console.error(err)
+    })
 
   }
 

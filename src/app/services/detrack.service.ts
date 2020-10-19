@@ -105,7 +105,7 @@ export class DetrackService {
     // Update read count
     storyRef.update({ counter: increment });
     // Create a NEW TrackNo
-    var trackingId = 'PTY' + this.padLeft(makeid(8), 8, '0')
+    var trackingId = 'PTY' + this.count + '_' + this.padLeft(makeid(5), 5, '0')
     batch.update(storyRef, { trackNumber: trackingId });
     // batch.set(statsRef, { count: increment }, { merge: true });
     batch.commit();

@@ -46,9 +46,11 @@ export class ApistockService {
       },
       panelClass: 'custom-modalbox'
     })
-    this.dialog._afterAllClosed.subscribe(res => {
-      this._route.navigate([route])
-    })
+    this.dialog.afterAllClosed.forEach(res => {
+      location.reload()
+      // this._route.navigateByUrl(route)
+    }
+    )
   }
 
   getStoreStock(b?): Observable<Stock> {
@@ -138,4 +140,7 @@ export class ApistockService {
   getTiendaByName(name) {
 
   }
+
+
+
 }

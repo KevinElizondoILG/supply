@@ -61,12 +61,21 @@ export class DatafireService {
 
 
   saveJob(job) {
-    console.log(job)
     var tid = this.createID();
-    var stid = this.createID();
-    this.fireStore.collection('trips').doc(tid).set(job.data[0]).then(res => {
-      console.log('Guardado res: ' + res)
-      // this.fireStore.collection('trips').doc(tid).collection('status').doc(stid).set({ status: 'in_process' })
-    })
+    var trackingNo = job.data[0].do_number;
+    if (job.data[0].type == 'Delivery') {
+      this.fireStore.collection('tripsDelivery').doc(trackingNo).set(job.data[0]).then(res => {
+        this.fireStore.collection('tripsDelivery').doc(trackingNo).update({ state: 'in_process' })
+      })
+    } else {
+      this.fireStore.collection('tripsCollection').doc(trackingNo).set(job.data[0]).then(res => {
+        this.fireStore.collection('tripsCollection').doc(trackingNo).update({ state: 'in_process' })
+      })
+    }
+
+  }
+
+  getJobsFireBase() {
+    this.fireStore.collection('tripsDelivery').doc()
   }
 }

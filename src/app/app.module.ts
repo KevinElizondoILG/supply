@@ -54,6 +54,7 @@ import { DialogAlertsComponent } from './modals/dialog-alerts/dialog-alerts.comp
 import { TrackingComponent } from './components/tracking/tracking.component';
 import { JobsHistoryComponent } from './components/jobs-history/jobs-history.component';
 import { KpiMillicomComponent } from './components/kpi-millicom/kpi-millicom.component';
+import { PosthookComponent } from './components/posthook/posthook.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { KpiMillicomComponent } from './components/kpi-millicom/kpi-millicom.com
     DialogAlertsComponent,
     TrackingComponent,
     JobsHistoryComponent,
-    KpiMillicomComponent
+    KpiMillicomComponent,
+    PosthookComponent
   ],
   imports: [
     BrowserModule,

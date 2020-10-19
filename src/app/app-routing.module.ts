@@ -1,3 +1,5 @@
+import { PosthookComponent } from './components/posthook/posthook.component';
+import { PosthookService } from './services/posthook.service';
 import { KpiMillicomComponent } from './components/kpi-millicom/kpi-millicom.component';
 import { JobsHistoryComponent } from './components/jobs-history/jobs-history.component';
 import { TrackingComponent } from './components/tracking/tracking.component';
@@ -36,7 +38,8 @@ const routes: Routes = [
   { path: 'job-requests', component: JobRequestsComponent, canActivate: [AuthGuard] },
   { path: 'job-history', component: JobsHistoryComponent, canActivate: [AuthGuard] },
   { path: 'tracking', component: TrackingComponent, canActivate: [AuthGuard] },
-  { path: 'kpi-millicom', component: KpiMillicomComponent, canActivate: [AuthGuard] }
+  { path: 'kpi-millicom', component: KpiMillicomComponent, canActivate: [AuthGuard] },
+  { path: 'hook', component: PosthookComponent }
   /*  { path: 'coordination', component:  (() => {
     return sessionStorage.getItem('roll') === 'EXT_SUC' ? CoordinationComponent : LoginComponent;
   })(), canActivate: [AuthGuard]}*/
