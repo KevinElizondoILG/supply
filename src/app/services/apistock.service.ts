@@ -5,10 +5,11 @@ import { Stock, TigoStock, StockReportGeneral, FEFOStock } from './../models/sto
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { DialogAlertsComponent } from '../modals/dialog-alerts/dialog-alerts.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogPdfComponent } from '../modals/dialog-pdf/dialog-pdf.component';
 
 
 
@@ -37,14 +38,32 @@ export class ApistockService {
 
   }
 
-  presentAlert(title, subtitle, message, route?) {
+  presentAlert(title, subtitle, message, data?, route?) {
     this.dialog.open(DialogAlertsComponent, {
       data: {
         title: title,
         subtitle: subtitle,
         message: message,
+        data: data
       },
       panelClass: 'custom-modalbox'
+    })
+    this.dialog.afterAllClosed.forEach(res => {
+      location.reload()
+      // this._route.navigateByUrl(route)
+    }
+    )
+  }
+  presentPdf(title, subtitle, message, data, route?) {
+    this.dialog.open(DialogPdfComponent, {
+      data: {
+        title: title,
+        subtitle: subtitle,
+        message: message,
+        data: data
+      },
+      panelClass: 'custom-modalbox',
+      width: '100vw'
     })
     this.dialog.afterAllClosed.forEach(res => {
       location.reload()

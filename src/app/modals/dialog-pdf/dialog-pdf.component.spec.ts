@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PosthookComponent } from './posthook.component';
+import { DialogPdfComponent } from './dialog-pdf.component';
 
-describe('PosthookComponent', () => {
-  let component: PosthookComponent;
-  let fixture: ComponentFixture<PosthookComponent>;
+describe('DialogPdfComponent', () => {
+  let component: DialogPdfComponent;
+  let fixture: ComponentFixture<DialogPdfComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PosthookComponent ]
+      declarations: [ DialogPdfComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PosthookComponent);
+    fixture = TestBed.createComponent(DialogPdfComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

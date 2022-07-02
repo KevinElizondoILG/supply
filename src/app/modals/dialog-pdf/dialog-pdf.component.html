@@ -1,0 +1,68 @@
+<div class="container" class="text-center">
+  <div class="text-center" id="htmlData">
+
+    <div class="container_label">
+      <div class="label_col label_left">
+        <p> ILG Supply Chain Services - Panamá</p>
+      </div>
+      <div class="label_col label_center">
+        <div class="label_row label_origin">
+          <h1>Origen</h1>
+          <div class="details">
+            <h2>{{JobData.json.collection.nombre}}</h2>
+            <h3>{{JobData.json.collection.contacto}}</h3>
+            <h4>Direeción: {{JobData.json.collection.direccion}}</h4>
+            <p>Teléfono: {{JobData.json.collection.telefono}}</p>
+            <p>Correo: {{JobData.json.collection.email}}</p>
+          </div>
+        </div>
+        <div class="label_row label_destine">
+          <h1>Destino</h1>
+          <div class="details">
+            <h2>{{JobData.json.delivery.nombre}}</h2>
+            <h3>{{JobData.json.delivery.contacto}}</h3>
+            <h4>Direeción: {{JobData.json.delivery.direccion}}</h4>
+            <p>Teléfono: {{JobData.json.delivery.telefono}}</p>
+            <p>Correo: {{JobData.json.delivery.email}}</p>
+            <p class="comments">Comentarios: {{JobData.json.delivery.comentarios}}</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="label_col label_right">
+        <div class="label_row row_1"><img src="../../../assets/ILG-Logo_1.png" alt=""></div>
+        <div class="label_row row_2">
+          <div class="label_col box">
+            <span class="label_col text-center">
+              <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel"
+                [value]="JobData.json.jobNo" cssClass="bshadow">
+              </ngx-qrcode>
+              <p>{{JobData.json.jobNo}}</p>
+            </span>
+          </div>
+          <div class="label_col box">
+            <h1 class="label_col text-center label_zone">
+              ILG
+            </h1>
+            <p class="label_col text-center label_zone">
+              {{JobData.json.delivery.nombre}}
+            </p>
+          </div>
+        </div>
+        <div class="label_row row_3">
+          <div class="label_col">
+            <p>Creado por: {{JobData.json.collection.contacto}} </p>
+            <p>Fecha Impresión: </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- <img src="../../../assets/ILG-Logo_1.png" alt="">
+  <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="code"
+    cssClass="bshadow">
+  </ngx-qrcode> -->
+  <button class="btn btn-danger filtar" (click)="downloadPDF()" class="primaryBtn">Imprimir PDF</button>
+</div>

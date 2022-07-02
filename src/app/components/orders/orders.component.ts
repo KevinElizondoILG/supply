@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApistockService } from 'src/app/services/apistock.service';
 import { ExcelService } from 'src/app/services/excel.service';
-import { DatesOrder } from 'src/app/models/dates/datesOrder';
+import { DatesOrder } from 'src/app/models/dates/DatesOrder';
 import { Stock } from 'src/app/models/stock/stock';
 import { Router } from '@angular/router';
 

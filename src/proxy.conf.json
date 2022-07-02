@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+      "target": "http://api.ilgsupplychain.com:5055",
+      "secure": false,
+      "logLevel": "debug"
+  }
+}

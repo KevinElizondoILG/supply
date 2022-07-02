@@ -191,7 +191,11 @@ table button {
   background-color: #06ba2f;
   left: 16px;
 }
-
+p {
+  font-size: 1.2rem;
+  font-weight: 200;
+  line-height: 1rem;
+}
 label {
   margin-bottom: 1.5rem;
 }

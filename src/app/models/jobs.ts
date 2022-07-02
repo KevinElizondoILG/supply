@@ -61,7 +61,7 @@ export interface Data {
   open_to_marketplace?: string; // Open to marketplace.
   marketplace_offer?: string; // Marketplace offer.
   do_number?: string; // required D.O No.
-  date: string; // required Date.
+  date?: string; // required Date.
   start_date?: Date; // Start date.
   status?: string; // Job Status.
   job_release_time?: string; // Job release time.
@@ -159,7 +159,7 @@ export interface Data {
   vehicle_type?: string; // Vehicle type.
   items: []; // Array of items.
   pod_time?: string; // POD time for manual update in format HH: MM:13: 30;                                                         //.
-  milestones: []; // Array of milestones.
+  milestones?: []; // Array of milestones.
 }
 
 export interface Marker {

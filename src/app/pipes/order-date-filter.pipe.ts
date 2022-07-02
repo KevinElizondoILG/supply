@@ -2,7 +2,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { toDate } from '@angular/common/src/i18n/format_date';
-import { DatesOrder } from '../models/dates/datesOrder';
+import { DatesOrder } from '../models/dates/DatesOrder';
 
 @Pipe({
   name: 'orderDateFilter'

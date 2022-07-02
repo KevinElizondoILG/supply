@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { firestore } from 'firebase/app';
 import { jobsResponses } from '../models/jobresponse';
+import firebase from 'firebase';
 
 
 
@@ -91,7 +92,7 @@ export class DetrackService {
       return result;
     }
 
-    const db = this.afDatabase.database.app
+    const db = firebase.database().app
     const batch = db.firestore().batch();
     // Read the last TrackNo
     await db.firestore().collection('misc').doc('trackingNo').get().then(res => {

@@ -50,7 +50,7 @@ p.pick {
 }
 
 .title h1 {
-  font-size: 62px;
+  font-size: 2rem;
   font-weight: 900;
   padding-bottom: 10px;
 }
@@ -62,9 +62,25 @@ p.pick {
 .regular {
   max-height: 10px;
 }
+.regular a:hover,
+.picking a:hover {
+  border: 0.5px solid #454545;
+  box-shadow: 0px 0px 5px 1px rgb(54, 51, 51);
+}
 
 .mat-body p,
 .mat-body-1 p,
 .mat-typography p {
   margin: 0px !important;
+}
+
+.col-6.picking.align-self-center {
+}
+.flex {
+  display: flex;
+  flex-flow: column;
+}
+p.box {
+  width: 60%;
+  margin: 16px auto;
 }

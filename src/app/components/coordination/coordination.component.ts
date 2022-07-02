@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApistockService } from 'src/app/services/apistock.service';
 import { Stock } from 'src/app/models/stock/stock';
 import { formatDate } from '@angular/common';
-import { DatesOrder } from 'src/app/models/dates/datesOrder';
+import { DatesOrder } from 'src/app/models/dates/DatesOrder';
 
 
 @Component({

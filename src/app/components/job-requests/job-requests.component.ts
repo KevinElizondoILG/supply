@@ -6,11 +6,8 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { DetrackService } from 'src/app/services/detrack.service';
 import { Links, jobToSend, Total_Count } from 'src/app/models/jobs';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
-import { DialogAlertsComponent } from 'src/app/modals/dialog-alerts/dialog-alerts.component';
 import { Router } from '@angular/router';
 
-
-const suc = require("../../../assets/data.json");
 
 
 @Component({
@@ -35,7 +32,6 @@ export class JobRequestsComponent implements OnInit {
   marker: any;
   data: any;
   distancetrip: number;
-  sucursales: DATA = suc;
   userSucursal: any;
   dataTienda: [SUCURSALES];
   fechaMin: string;
@@ -333,9 +329,9 @@ export class JobRequestsComponent implements OnInit {
       return getDate;
     }
   }
-  getTiendaByName(name) {
+  async getTiendaByName(name) {
 
-    var data = this.dataTienda.filter(x => name.indexOf(x.NOMBRE) > -1).filter((elem1, pos, arr) => arr.findIndex((elem2) => elem2.NOMBRE === elem1.NOMBRE) === pos);
+    var data = await this.dataTienda.filter(x => name.indexOf(x.NOMBRE) > -1).filter((elem1, pos, arr) => arr.findIndex((elem2) => elem2.NOMBRE === elem1.NOMBRE) === pos);
 
     return data[0];
 
@@ -347,8 +343,8 @@ export class JobRequestsComponent implements OnInit {
 
 
     if (this.dataB2B.origen == '') {
-      var origen = this.getTiendaByName(this.dataT2T.origen);
-      var destino = this.getTiendaByName(this.dataT2T.destino);
+      var origen = await this.getTiendaByName(this.dataT2T.origen);
+      var destino = await this.getTiendaByName(this.dataT2T.destino);
       this.dataOrigen = {
         fechaTarea: this.dataT2T.fechaTarea,
         nombre: this.dataT2T.origen,
@@ -375,7 +371,7 @@ export class JobRequestsComponent implements OnInit {
       }
 
     } else {
-      var origen = this.getTiendaByName(this.dataB2B.origen);
+      var origen = await this.getTiendaByName(this.dataB2B.origen);
       this.dataOrigen = {
         fechaTarea: this.dataB2B.fechaTarea,
         nombre: this.dataB2B.origen,
@@ -403,13 +399,22 @@ export class JobRequestsComponent implements OnInit {
 
     }
 
-    this.detrack.couterJobs().then(res => {
+    await this.detrack.couterJobs().then(res => {
       this.track = res
       // console.log(this.track)
       this.createJobCollection(this.track, this.dataOrigen, this.dataDestino)
       this.createJobDelivery(this.track, this.dataOrigen, this.dataDestino)
+      var objJobs =
+      {
+        json: {
+          collection: this.dataOrigen,
+          delivery: this.dataOrigen,
+          jobNo: this.track
+        }
+      };
+
       this._api.presentAlert('Tarea Creada', 'Tareas de Recolecta y Entrega', 'Su numero de tracking es: ' +
-        this.track + ' para más información verifique la opción de tareas en tránsito.', '/job-requests')
+        this.track + ' para más información verifique la opción de tareas en tránsito.', objJobs, '/job-requests')
     })
   }
   async createJobCollection(trackNo, origen: dataJobs, destino: dataJobs) {
@@ -449,9 +454,9 @@ export class JobRequestsComponent implements OnInit {
         address_lng: ''
       } as jobToSend]
     }
-    // console.log(this.jobCollection)
-    this.dataService.saveJob(this.jobCollection)
-    this.detrack.createJobs(this.jobCollection).then((res) => {
+    // // console.log(this.jobCollection)
+    await this.dataService.saveJob(this.jobCollection)
+    await this.detrack.createJobs(this.jobCollection).then((res) => {
       this.dataService.saveJob(res)
       // console.log(res)
     }).catch(err => {
@@ -496,9 +501,9 @@ export class JobRequestsComponent implements OnInit {
         address_lng: ''
       } as jobToSend]
     }
-    this.dataService.saveJob(this.jobDelivery)
+    await this.dataService.saveJob(this.jobDelivery)
     // console.log(this.jobDelivery)
-    this.detrack.createJobs(this.jobDelivery).then((res) => {
+    await this.detrack.createJobs(this.jobDelivery).then((res) => {
       this.dataService.saveJob(res)
       // console.log(res)
     }).catch(err => {
@@ -510,7 +515,7 @@ export class JobRequestsComponent implements OnInit {
 
   u() {
     this.detrack.couterJobs().then(res => this.track = res)
-    //console.log(this.track)
+    // console.log(this.track)
   }
 
   getTienda(email) {

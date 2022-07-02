@@ -1,0 +1,133 @@
+#htmlData {
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+}
+.mat-dialog-container {
+  width: 76rem;
+}
+.text-center {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.text-left {
+  text-align: left;
+  line-height: 5px;
+  padding-left: 1rem;
+}
+.container_label {
+  border: solid 2px #e6e6e6;
+  height: 32rem;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.2rem;
+}
+.label_col {
+  flex-direction: column;
+  display: flex;
+}
+.label_row {
+  flex-grow: 1;
+  border: solid 1px #e6e6e6;
+  display: flex;
+  flex-direction: column;
+}
+
+.label_left {
+  background-color: black;
+  flex-basis: 4.5rem;
+  position: relative;
+}
+.label_left p {
+  color: #ffffff !important;
+  position: absolute;
+  top: 1.5rem;
+  width: 15rem;
+  left: 3rem;
+  right: 2rem;
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+}
+
+.label_center {
+  flex-basis: 45rem;
+}
+.label_right {
+  flex-basis: 12.5rem;
+}
+.label_right div.row_1 {
+  align-items: center;
+  justify-content: center;
+}
+.label_right .label_row .label_col {
+  justify-content: center;
+}
+.label_origin {
+  text-align: left;
+  padding-left: 1rem;
+}
+.label_destine {
+  text-align: left;
+  padding-left: 1rem;
+}
+.label_col.label_right div.row_1 img {
+  width: 10rem;
+  margin: 0;
+  padding: 0;
+}
+.label_zone {
+  background-color: black;
+  color: #ffffff;
+  padding: 1rem;
+}
+h1.label_zone {
+  font-size: 5rem;
+  padding: 2rem;
+}
+.box {
+  flex-grow: 1;
+}
+.label_right .label_row .row_1 {
+  flex-grow: 2;
+}
+.label_right .label_row .row_2 {
+  flex-grow: 3;
+}
+.label_right .label_row .row_3 {
+  flex-grow: 1;
+}
+.label_origin h1,
+.label_destine h1 {
+  font-weight: 900;
+  font-size: 2rem;
+  border-right: 0.5rem solid rgb(0, 0, 0);
+  border-width: 0.8rem;
+  padding-right: 0.5rem;
+  height: 2rem;
+  margin: 0;
+}
+.details h2 {
+  font-size: 1rem;
+}
+.details h2,
+.details h3,
+.details h4,
+.details p {
+  margin: 0;
+}
+
+.details {
+  width: 60%;
+}
+.comments {
+  border-radius: 5px;
+  border: 1px solid rgb(69, 68, 68);
+  padding: 5px;
+  background-color: rgb(182, 182, 182);
+}
+.primaryBtn {
+  background-color: #d40303;
+  color: white;
+}

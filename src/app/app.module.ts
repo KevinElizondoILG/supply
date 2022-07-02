@@ -54,7 +54,9 @@ import { DialogAlertsComponent } from './modals/dialog-alerts/dialog-alerts.comp
 import { TrackingComponent } from './components/tracking/tracking.component';
 import { JobsHistoryComponent } from './components/jobs-history/jobs-history.component';
 import { KpiMillicomComponent } from './components/kpi-millicom/kpi-millicom.component';
-import { PosthookComponent } from './components/posthook/posthook.component';
+// BARCODE
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { DialogPdfComponent } from './modals/dialog-pdf/dialog-pdf.component';
 
 
 @NgModule({
@@ -86,7 +88,7 @@ import { PosthookComponent } from './components/posthook/posthook.component';
     TrackingComponent,
     JobsHistoryComponent,
     KpiMillicomComponent,
-    PosthookComponent
+    DialogPdfComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +102,8 @@ import { PosthookComponent } from './components/posthook/posthook.component';
     FormsModule,
     NgbModule,
     NgbPaginationModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    NgxQRCodeModule
   ],
   providers: [
     AuthGuard,
@@ -111,7 +114,7 @@ import { PosthookComponent } from './components/posthook/posthook.component';
     AngularFireDatabase,
     AngularFirestore
   ],
-  entryComponents: [DialogAlertsComponent],
+  entryComponents: [DialogAlertsComponent, DialogPdfComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

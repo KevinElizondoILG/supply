@@ -7,6 +7,7 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { UserInfo } from './../models/users/users';
 import { environment } from 'src/environments/environment.prod';
 import { userInfo } from 'os';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 const httpOptions = {
@@ -47,12 +48,12 @@ export class LoginService implements OnInit {
 
   }
 
-  constructor(private http: HttpClient, private _stock: ApistockService, private router: Router) {
+  constructor(private http: HttpClient, private _stock: ApistockService, private _auth: AngularFireAuth, private router: Router) {
     this.store = null;
     sessionStorage.removeItem('error')
   }
 
-  getLogin(username, password) {
+  async getLogin(username, password) {
     this.body = {
       EMAIL: username,
       CLAVE: password,
@@ -61,11 +62,20 @@ export class LoginService implements OnInit {
       TIPO: null
     };
 
+
+
     const headers = { headers: { 'Content-Type': 'application/json; charset=utf-8' } };
 
     this.http.post(this.SERVER + this.API_URL + 'login', this.body, headers)
       .subscribe(
         (data: any) => {
+          this._auth.auth.signInAnonymously().then(res => {
+            var isAnonymous = res.user.isAnonymous;
+            var uid = res.user.uid;
+            console.log(isAnonymous)
+            console.log(uid)
+          })
+
           if (data != null) {
             this.alert = false;
             this.username = data.Data.EMAIL;
@@ -93,7 +103,7 @@ export class LoginService implements OnInit {
                         this._stock.getStoreStock(this.store).subscribe(stock => {
                           localStorage.setItem('stock', JSON.stringify(stock));
                         });
-                      })
+                      });
                       this.router.navigate(['/order']);
                       break;
                     case 'EXT_CON':
@@ -111,6 +121,7 @@ export class LoginService implements OnInit {
             }
             else if (this.country === "PTY") {
               switch (Number(this.consorcio)) {
+
                 case 40:
                   //   this.roll === 'INT' ? (console.log('soy admin ILG')) : (console.log('SOY' + this.roll));
                   this.router.navigate(['/InvGeneralReport']);
@@ -120,7 +131,7 @@ export class LoginService implements OnInit {
                     case 'EXT_SUC':
                       this.router.navigate(['/job-requests']);
                       break;
-                    case 'EXT_SUC':
+                    case 'EXT_CON':
                       this.router.navigate(['/InvGeneralReport']);
                       break;
                   }
@@ -132,19 +143,17 @@ export class LoginService implements OnInit {
             }
           }
           else {
-
-
           }
           // console.log('entro')
-          this.dataCollect = { 'alert': this.alert }
-          localStorage.removeItem('error')
+          this.dataCollect = { 'alert': this.alert };
+          localStorage.removeItem('error');
           return data;
         },
         error => {
           //  console.error(error);
           this.alert = true;
           this.dataCollect = { 'alert': this.alert, 'data': error.error.Message };
-          localStorage.setItem('error', JSON.stringify(this.dataCollect))
+          localStorage.setItem('error', JSON.stringify(this.dataCollect));
         }
       );
 
